@@ -1,0 +1,11 @@
+services:
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ecobankqr
+      POSTGRES_PASSWORD: ecobankpassword
+      POSTGRES_DB: ecobankdb
+    ports:
+      - 5433:5432
