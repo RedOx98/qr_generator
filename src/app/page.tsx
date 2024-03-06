@@ -22,7 +22,7 @@ export default function Home() {
     e.preventDefault();
 
     try {
-      const res = await fetch(`https://quickchart.io/qr?text=https://ecobank.com/${staffId}&format=png`, {
+      const res = await fetch(`https://quickchart.io/qr?text=https://localhost:3000/staffInfo/${staffId}&format=png`, {
       method: 'GET',
       headers: {
         "Content-Type": "image/png"
@@ -38,6 +38,7 @@ export default function Home() {
     // const blobUrl = URL.createObjectURL(blob);
     const blob = await res.blob();
     const blobUrl = URL.createObjectURL(blob);
+    console.log(blobUrl)
     setQr(blobUrl);
     } catch (err) {
       console.log(err);
@@ -61,6 +62,7 @@ export default function Home() {
           </div>
         )}
     </div>
+
   </div>
   );
 }
