@@ -22,4 +22,11 @@ model User {
   surname String?
   firstName String?
   otherNames String?
+  physicalAddress String?
+  email String?
+  jobRole String?
+  url String?
+  department String?
+  phoneWork String?
+  phoneHome String?
 }

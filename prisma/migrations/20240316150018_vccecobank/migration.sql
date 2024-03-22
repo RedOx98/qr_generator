@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "User" ALTER COLUMN "phoneHome" SET DATA TYPE TEXT,
+ALTER COLUMN "phoneWork" SET DATA TYPE TEXT;
