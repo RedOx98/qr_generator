@@ -255,8 +255,8 @@ const email = data.email
               </div>
             </div>
             <div className=" bg-[#ffffff] w-[320px] h-[200px] flex flex-col shadow-lg">
-              <div className="flex-[14] flex justify-center items-center ml-[80px]">
-                  <Image className=' object-cover ' src="/images/GetLogoImage.png" alt='/' width={200} height={200} />
+              <div className="flex-[14] flex justify-center items-center ml-[-20px]">
+                  <Image className=' object-cover ' src="/images/matrix3.png" alt='/' width={200} height={200} />
               </div>
               <div className="flex items-center justify-center mt-[-8px] flex-1 mb-[10px]">
                 <h1 className="text-[#000000] font-thin text-[8px]">Commercial Banking | Consumer Banking | Corporate and Investment Banking</h1>
