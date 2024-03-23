@@ -1,10 +1,12 @@
 "use client"
-import { faAngleLeft, faArrowAltCircleDown, faBinoculars, faEnvelope, faLocationDot, faMagnifyingGlass, faPhone, faRightLeft, faSpider, faUser, faUserTag, faV } from "@fortawesome/free-solid-svg-icons";
+
+import { faAngleLeft, faEnvelope, faLocationDot, faMagnifyingGlass, faPhone, faSpider, faUser, faUserTag } from "@fortawesome/free-solid-svg-icons";
 import { faAngleDoubleDown } from "@fortawesome/free-solid-svg-icons/faAngleDoubleDown";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons/faAngleRight";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Image from "next/image";
-import { useState } from "react";
+import { StaffType } from '@/types/types';
+import Image from 'next/image';
+import { useEffect, useState } from "react";
 
 type Input = {
   staffId: string | undefined
@@ -16,10 +18,32 @@ export default function Home() {
   const [qr, setQr] = useState<string | null>(null);
   console.log(staffId);
   console.log(qr);
+  const [data, setData] = useState<StaffType>({
+    department: "",
+    email: "",
+    firstName: "",
+    id: "",
+    jobRole: "",
+    otherNames: "",
+    phoneHome: "",
+    phoneWork: "",
+    physicalAddress: "",
+    staffIdNo: "",
+    surname: "",
+    url: "",
+    username: "",
+});
+console.log(data?.department);
+const email = data?.email
+    var goog_chart = 'http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=';
+    const [image, setImage] = useState(goog_chart);
+    var str_start = 'BEGIN:VCARD\nVERSION:3.0\n';
+        var str_vcard = 'BEGIN:VCARD\nVERSION:3.0\n';
+        var str_end = '\nEND:VCARD';
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     //  React.ChangeEvent<HTMLInputElement> | undefined
     setStaffId(e.target.value)
-    console.log(staffId);
+    // console.log(staffId);
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -32,14 +56,7 @@ export default function Home() {
         "Content-Type": "image/png"
       }
     })
-    // const arrayBuffer = await res.arrayBuffer();
-    // const base64String = btoa(new Uint8Array(arrayBuffer).reduce((data, byte) => data + String.fromCharCode(byte), ''));
-    // setQr(`data:image/png;base64,${base64String}`)
-    // console.log(base64String);
-
-    // Create a Blob URL
-    // const blob = new Blob([Uint8Array.from(atob(base64String), c => c.charCodeAt(0))], { type: 'image/png' });
-    // const blobUrl = URL.createObjectURL(blob);
+    
     const blob = await res.blob();
     const blobUrl = URL.createObjectURL(blob);
     console.log(blobUrl)
@@ -49,6 +66,81 @@ export default function Home() {
       
     }
   }
+
+  useEffect(() => {
+    const fetchStaff = async () => {
+        const staffNo: number = 10928;
+        try {
+            const res = await fetch(`http://localhost:3000/api/staffinfo/${staffId}`, {});
+
+            if (!res.ok) {
+                throw new Error("Failed to fetch");
+            }
+
+            const data = await res.json();
+            // console.log(data);
+            setData(data.data);
+            const add_staff = () => {
+        const firstName = data?.data?.firstName;
+        const surname = data?.data?.surname;
+        const otherNames = data?.data?.otherNames;
+        // const birthday = vcard.get_field("birthday");
+        // const gender = vcard.get_field("gender");
+        return str_vcard += 'N:' + surname + ';' + firstName + ';' + otherNames + '\n' +
+            'FN:' + firstName + ' ' + surname + ' ' + otherNames;
+
+        // if (birthday !== '') {
+        //     vcard.str_vcard += '\nBDAY:' + birthday;
+        // };
+        // if (gender !== '') {
+        //     vcard.str_vcard += '\nX-Gender:'+ gender;
+        // }
+    };
+    const add_address = () => {
+        const physical_address = data?.data?.physicalAddress;
+        // console.log(physical_address)
+        const department = data?.data?.department;
+        // if(physical_address + department !== '')
+        return str_vcard += '\nADR;TYPE=home:;;'+physical_address+';'+department;
+    };
+    const add_email = () => {
+        const work_mail = data?.data?.email;
+        console.log(work_mail);
+        // data?.data?.email;
+        // const home_mail = vcard.get_field(res?.email);
+        return str_vcard += '\nEMAIL;TYPE=internet,home:'+work_mail;
+    };
+    const add_tel = () => {
+        // const home = vcard.get_field(res?.email?.toString();
+        const work = data?.data?.phoneWork;
+        return str_vcard += '\nTEL;TYPE=work:'+work;
+    };
+    const add_url = ()=> {
+        const urlWork = data?.data?.url;
+        return str_vcard += '\nURL;TYPE=work:'+urlWork;
+    };
+    const save = ()=> {
+        add_staff();
+        add_address();
+        add_tel()
+        add_email();
+        add_url();
+        // add_work;
+
+        str_vcard += str_end;
+        // console.log(str_vcard)
+
+        const formatres = goog_chart+str_vcard.replace(/\n/g,'%0A');
+        setImage(formatres)
+        // return formatres;
+    }
+            save();
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    fetchStaff();
+}, [staffId])
   // bg-[#BFCBD7]
   return (
   <div className="w-full max-h-screen  flex flex-row items-center justify-center  bg-gradient-to-r from-[#f2f4f790] via-[#eaf0f7] to-[#edf0f2] z-[-99] overscroll-none">
@@ -85,7 +177,7 @@ export default function Home() {
         <div className="flex flex-row rounded-2xl w-[374px] h-[33px] justify-center items-center bg-[#AFC2D490]" style={{border: "1.5px solid #C6DBF0"}}>
           <div className="flex justify-center items-center" >
           {/* <input type="text" className="w-[300px] border-none outline-none" placeholder="Lookup Username"/> */}
-          <input type="text" className="firstName w-[350px] border-b-[1px] focus:border-b-1 outline-none bg-gradient-to-r from-[#c2d0dd] via-[#B3C1D0] to-[#c2d0dd] text-center focus:bg-gradient-to-r focus:from-[#C6DBF0] focus:via-[#B3C1D0] focus:to-[#AFC2D4] focus:text-center focus:text-[14px] focus:font-sans h-[33px] rounded-xl" placeholder="Lookup Username"/>
+          <input type="text" className="firstName w-[350px] border-b-[1px] focus:border-b-1 outline-none bg-gradient-to-r from-[#c2d0dd] via-[#B3C1D0] to-[#c2d0dd] text-center focus:bg-gradient-to-r focus:from-[#C6DBF0] focus:via-[#B3C1D0] focus:to-[#AFC2D4] focus:text-center focus:text-[14px] focus:font-sans h-[33px] rounded-xl" placeholder="Lookup Username" onChange={handleChange}/>
           </div>
           <div className="bg-[#ACBFD2] w-[20px] h-[20px] rounded-full flex justify-center items-center">
           <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#000000] opacity-100 cursor-pointer p-[1px]' width={16} height={16}/>
@@ -114,17 +206,26 @@ export default function Home() {
             <FontAwesomeIcon icon={faAngleLeft} className='text-[#89aed0] opacity-100 cursor-pointer' width={40} height={30}/>
             </div>
           <div className="mb-[20px]">
-          <div className=" bg-[#ffffff] w-[320px] h-[200px] shadow-lg flex flex-col gap-1 rounded-[10px]">
+          <div className=" bg-[#ffffff] w-[320px] h-[200px] shadow-lg flex flex-col gap-1 rounded-[10px] relative">
               {/* <FontAwesomeIcon icon={faStar} className='text-[#00000020] opacity-100' width={20} height={20}/> */}
               <div className="flex-[2] flex flex-row justify-between items-start ">
                 <div className="bg-[#000000] w-[15px] h-full ml-[30px] "></div>
                 <div className="flex flex-row gap-1 mt-[10px]">
                   <div className="flex flex-col gap-[0px]">
                     <div className="">
-                      <h5 className="text-[#000000] uppercase font-bold text-[14px]">OLAIDE HAMMED</h5>
+                      {
+                        data?.firstName == '' && data?.surname == ''?<h5 className="text-[#000000] uppercase font-bold text-[14px]">JOHN DOE</h5>
+                        :
+                        <h5 className="text-[#000000] uppercase font-bold text-[14px]">{data?.firstName + ' ' + data?.surname}</h5>
+                      }
                     </div>
                     <div className="flex justify-end items-center">
-                      <h5 className="text-[#000000] uppercase font-light text-[10px]">MARKETING</h5>
+                      {
+                        data?.department == '' ? <h5 className="text-[#000000] uppercase font-light text-[10px]">TECHNOLOGY</h5> 
+                        :
+                         <h5 className="text-[#000000] uppercase font-light text-[10px]">{data?.department}</h5>
+                      }
+                      
                     </div>
                   </div>
                   <div className="bg-[#000000] rounded-l-full w-[45px] h-[40px] flex items-center justify-center">
@@ -138,7 +239,10 @@ export default function Home() {
                     <FontAwesomeIcon icon={faPhone} className='text-[#ffff] opacity-100' width={8} height={8} />
                   </div>
                   <div className="">
-                    <h5 className="font-extralight text-[12px]">+234 903 694 9353</h5>
+                    {data?.phoneWork ==''?<h5 className="font-extralight text-[12px] text-black">090369410000</h5>
+                    :
+                    <h5 className="font-extralight text-[12px] text-black">{data?.phoneWork}</h5>
+                    }
                   </div>
                 </div>
                 <div className="flex flex-row w-full gap-6">
@@ -146,7 +250,11 @@ export default function Home() {
                     <FontAwesomeIcon icon={faEnvelope} className='text-[#ffff] opacity-100' width={8} height={8} />
                   </div>
                   <div className="">
-                    <h5 className="font-extralight text-[12px]">olaskeet@gmail.com</h5>
+                    {
+                      data?.email ===''? <h5 className="font-extralight text-[12px]">JohnDoe@gmail.com</h5>
+                      :
+                      <h5 className="font-extralight text-[12px]">{data?.email}</h5>
+                    }
                   </div>
                 </div>
                 <div className="flex flex-row w-full gap-6">
@@ -154,7 +262,7 @@ export default function Home() {
                     <FontAwesomeIcon icon={faSpider} className='text-[#ffff] opacity-100' width={8} height={8} />
                   </div>
                   <div className="">
-                    <h5 className="font-extralight text-[12px]">olahammed.com</h5>
+                    {data?.url===''? <h5 className="font-extralight text-[12px]">JohnDoe.com</h5>: <h5 className="font-extralight text-[12px]">{data?.url}</h5>}
                   </div>
                 </div>
                 <div className="flex flex-row w-full gap-6">
@@ -162,12 +270,24 @@ export default function Home() {
                     <FontAwesomeIcon icon={faLocationDot} className='text-[#ffff] opacity-100' width={8} height={8} />
                   </div>
                   <div className="">
-                    <h5 className="font-extralight text-[12px]">270B EPAC, Ozumba Mbadiwe, VI Lagos.</h5>
+                    {
+                      data?.physicalAddress === ''? <h5 className="font-extralight text-[12px]">HEAD OFFICE</h5>
+                      :
+                      <h5 className="font-extralight text-[12px]">{data?.physicalAddress}</h5>
+                    }
                   </div>
                 </div>
               </div>
               <div className="flex-[0.5] flex items-end justify-end">
               </div>
+              <div className="flex-1 absolute top-[60px] right-[15px] ">
+                {
+                  data?.staffIdNo == '' ? <Image src="http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=" alt='Passport Photograph' width={60} height={60} className='rounded-lg'/> 
+                  :
+                   <Image src={image} alt='Passport Photograph' width={60} height={60} className='rounded-lg'/>
+                }
+                        
+                    </div>
             </div>
           </div>
           <div className="bg-[#ABC8E4] w-[32px] h-[32px] rounded-full flex justify-center items-center">
@@ -191,54 +311,82 @@ export default function Home() {
               <h6 className="text-black font-thin text-[12px]  w-[40px]">USER ID:</h6>
             </div>
             <div className="absolute top-[-20px] left-[-20px]">
-              <h6 className="text-black font-thin text-[14px] ">10941</h6>
+              {
+                data?.staffIdNo === ''? <h6 className="text-black font-thin text-[14px] ">10941</h6>
+                :
+                <h6 className="text-black font-thin text-[14px] ">{data?.staffIdNo}</h6>
+              }
+              
             </div>
           </div>
         </div>
         <div className="flex-[6] flex flex-col gap-8 ml-[-60px] mt-[20px]">
-          <div className="flex flex-row gap-6">
-            <div className="flex-1">
+          <div className="flex flex-row gap-2 px-[64px]">
+            <div className="flex-[2]">
               <h4 className="text-[14px] font-sans font-thin">Firstname:</h4>
             </div>
             <div className="flex-[2]">
-              <h4 className="text-[14px] font-sans font-semibold">Olumide</h4>
+              {
+                data?.firstName === ''? <h4 className="text-[14px] font-sans font-semibold">Olumide</h4>
+                :
+                <h4 className="text-[14px] font-sans font-semibold">{data?.firstName}</h4>
+              }
+              
             </div>
           </div>
-          <div className="flex flex-row gap-6">
-            <div className="flex-[1]">
+          <div className="flex flex-row gap-2 px-[64px]">
+            <div className="flex-[2]">
               <h4 className="text-[14px] font-sans font-thin">Lastname:</h4>
             </div>
             <div className="flex-[2]">
-              <h4 className="text-[14px] font-sans font-semibold">OLAMILEKAN</h4>
+              {
+                data?.surname === ''? <h4 className="text-[14px] font-sans font-semibold">OLAMILEKAN</h4> : <h4 className="text-[14px] font-sans font-semibold">
+                  {data?.surname}</h4>
+              }
+              
             </div>
           </div>
-          <div className="flex flex-row gap-6">
-            <div className="flex-[1]">
+          <div className="flex flex-row gap-2 px-[64px]">
+            <div className="flex-[2]">
               <h4 className="text-[14px] font-sans font-thin">Role:</h4>
             </div>
             <div className="flex-[2]">
-              <h4 className="text-[14px] font-sans font-semibold">Data Analyst</h4>
+              {
+                data?.jobRole === '' ? <h4 className="text-[14px] font-sans font-semibold">Data Analyst</h4>
+                : 
+                <h4 className="text-[14px] font-sans font-semibold">{data?.jobRole}</h4>
+              }
+              
             </div>
           </div>
-          <div className="flex flex-row gap-6">
-            <div className="flex-[1]">
+          <div className="flex flex-row gap-2 px-[64px]">
+            <div className="flex-[2]">
               <h4 className="text-[14px] font-sans font-thin">Email:</h4>
             </div>
             <div className="flex-[2]">
-              <h4 className="text-[14px] font-sans font-semibold">oolamilekan@ecobank.com</h4>
+              {
+                data?.url === '' ?  <h4 className="text-[14px] font-sans font-semibold">oolamilekan@ecobank.com</h4>: <h4 className="text-[14px] font-sans font-semibold">{data?.url}</h4>
+              }
+              
             </div>
           </div>
-          <div className="flex flex-row gap-6">
+          <div className="flex flex-row gap-2 px-[64px]">
             <div className="flex-[1]">
               <h4 className="text-[14px] font-sans font-thin">Location:</h4>
             </div>
             <div className="flex-[2]">
-              <h4 className="text-[14px] font-sans font-semibold">Head Office</h4>
+            {
+          data?.physicalAddress === ''? <h4 className="text-[14px] font-sans font-semibold">HEAD OFFICE</h4>
+          : 
+          <h4 className="text-[14px] font-sans font-semibold">{data?.physicalAddress}</h4>
+        }
+              
             </div>
           </div>
         </div>
       </div>
       <div className="flex-[0.1] bg-gradient-to-r from-[#03658C] via-[#02415A] to-[#0699AD] rounded-b-[10px] flex justify-center items-center cursor-pointer ">
+        
         <h3 className="text-[#ffff] text-[16px] font-thin">Generate Card</h3>
       </div>
     </div>
@@ -246,3 +394,12 @@ export default function Home() {
   </div>
   );
 }
+
+// const arrayBuffer = await res.arrayBuffer();
+    // const base64String = btoa(new Uint8Array(arrayBuffer).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+    // setQr(`data:image/png;base64,${base64String}`)
+    // console.log(base64String);
+
+    // Create a Blob URL
+    // const blob = new Blob([Uint8Array.from(atob(base64String), c => c.charCodeAt(0))], { type: 'image/png' });
+    // const blobUrl = URL.createObjectURL(blob);
