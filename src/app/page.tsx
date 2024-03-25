@@ -1,12 +1,15 @@
 "use client"
 
-import { faAngleLeft, faEnvelope, faLocationDot, faMagnifyingGlass, faPhone, faSpider, faUser, faUserTag } from "@fortawesome/free-solid-svg-icons";
+import { faAngleLeft, faEnvelope, faLocationDot, faMagnifyingGlass, faPhone, faSpider, faUser, faUserTag, faFilePdf, faFileImage } from "@fortawesome/free-solid-svg-icons";
 import { faAngleDoubleDown } from "@fortawesome/free-solid-svg-icons/faAngleDoubleDown";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons/faAngleRight";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { StaffType } from '@/types/types';
 import Image from 'next/image';
 import { useEffect, useState } from "react";
+import html2canvas from 'html2canvas';
+import { usePDF } from 'react-to-pdf';
+
 
 type Input = {
   staffId: string | undefined
@@ -14,6 +17,8 @@ type Input = {
 
 
 export default function Home() {
+  const { toPDF, targetRef } = usePDF({ filename: 'page.pdf' });
+
   const [staffId, setStaffId] = useState<string>('');
   const [qr, setQr] = useState<string | null>(null);
   console.log(staffId);
@@ -33,6 +38,21 @@ export default function Home() {
     url: "",
     username: "",
 });
+
+
+  const handleDownload = async () => {
+    const divRef = document.getElementById('my-qr'); 
+    if (divRef) {
+      const canvas = await html2canvas(divRef);
+      const imgData = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.href = imgData;
+      link.download = 'my-div-image.png';
+      link.click();
+    }
+  };
+
+
 console.log(data?.department);
 const email = data?.email
     var goog_chart = 'http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=';
@@ -301,7 +321,7 @@ const email = data?.email
       <div className="flex-[0.1] bg-[#000000] rounded-t-[10px] flex justify-center items-center">
       <h3 className="text-[#ffff] text-[14px] font-sans font-thin">Lookup Data Result</h3>
       </div>
-      <div className="flex-[6] bg-[#ffff] flex flex-col justify-around items-center p-2">
+      <div id="my-qr" ref={targetRef} className="flex-[6] bg-[#ffff] flex flex-col justify-around items-center p-2">
         <div className="flex-[2] mt-[15px] flex flex-row gap-10  items-center mr-[-50px] ">
           <div className="w-[100px] h-[100px] rounded-full flex justify-center items-center" style={{border: "1px solid black"}}>
           <FontAwesomeIcon icon={faUserTag} className='text-[#000000] opacity-100 cursor-pointer' width={80} height={80}/>
@@ -384,6 +404,16 @@ const email = data?.email
             </div>
           </div>
         </div>
+<button className="flex items-center justify-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600" onClick={handleDownload}>
+  <FontAwesomeIcon icon={faFilePdf} className="text-white" width={16} height={16} />
+  <span className="text-base">Save as PDF</span>
+</button>
+
+<button className="flex items-center justify-center gap-2 mt-4 px-4 py-2 mb-4 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600" onClick={() => toPDF()}>
+  <FontAwesomeIcon icon={faFileImage} className="text-white" width={16} height={16} />
+  <span className="text-base">Save as Image</span>
+</button>
+
       </div>
       <div className="flex-[0.1] bg-gradient-to-r from-[#03658C] via-[#02415A] to-[#0699AD] rounded-b-[10px] flex justify-center items-center cursor-pointer ">
         
