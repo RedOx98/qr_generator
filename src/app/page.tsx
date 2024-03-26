@@ -226,7 +226,7 @@ const email = data?.email
             <FontAwesomeIcon icon={faAngleLeft} className='text-[#89aed0] opacity-100 cursor-pointer' width={40} height={30}/>
             </div>
           <div className="mb-[20px]">
-          <div className=" bg-[#ffffff] w-[320px] h-[200px] shadow-lg flex flex-col gap-1 rounded-[10px] relative">
+          <div id="my-qr" ref={targetRef} className=" bg-[#ffffff] w-[320px] h-[200px] shadow-lg flex flex-col gap-1 rounded-[10px] relative">
               {/* <FontAwesomeIcon icon={faStar} className='text-[#00000020] opacity-100' width={20} height={20}/> */}
               <div className="flex-[2] flex flex-row justify-between items-start ">
                 <div className="bg-[#000000] w-[15px] h-full ml-[30px] "></div>
@@ -299,8 +299,7 @@ const email = data?.email
                 </div>
               </div>
               <div className="flex-[0.5] flex items-end justify-end">
-              </div>
-              <div className="flex-1 absolute top-[60px] right-[15px] ">
+              <div className="flex-1 absolute top-[60px] right-[35px] ">
                 {
                   data?.staffIdNo == '' ? <Image src="http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=" alt='Passport Photograph' width={60} height={60} className='rounded-lg'/> 
                   :
@@ -308,6 +307,8 @@ const email = data?.email
                 }
                         
                     </div>
+              </div>
+              
             </div>
           </div>
           <div className="bg-[#ABC8E4] w-[32px] h-[32px] rounded-full flex justify-center items-center">
@@ -321,7 +322,7 @@ const email = data?.email
       <div className="flex-[0.1] bg-[#000000] rounded-t-[10px] flex justify-center items-center">
       <h3 className="text-[#ffff] text-[14px] font-sans font-thin">Lookup Data Result</h3>
       </div>
-      <div id="my-qr" ref={targetRef} className="flex-[6] bg-[#ffff] flex flex-col justify-around items-center p-2">
+      <div className="flex-[6] bg-[#ffff] flex flex-col justify-around items-center p-2">
         <div className="flex-[2] mt-[15px] flex flex-row gap-10  items-center mr-[-50px] ">
           <div className="w-[100px] h-[100px] rounded-full flex justify-center items-center" style={{border: "1px solid black"}}>
           <FontAwesomeIcon icon={faUserTag} className='text-[#000000] opacity-100 cursor-pointer' width={80} height={80}/>
