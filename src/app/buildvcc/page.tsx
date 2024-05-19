@@ -1,10 +1,14 @@
 "use client"
 
 import { StaffType } from '@/types/types'
-import { faArrowAltCircleDown, faEnvelope, faLocationDot, faPhone, faSpider, faUser } from '@fortawesome/free-solid-svg-icons'
+
+import { faArrowAltCircleDown, faEnvelope, faLocationDot, faPhone, faSpider, faUser , faFilePdf, faFileImage } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
+import html2canvas from 'html2canvas';
+import { usePDF } from 'react-to-pdf';
+
 
 const BuildVirtualCard = () => {
   var goog_chart = 'http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=';
@@ -30,8 +34,20 @@ const BuildVirtualCard = () => {
     username: "",
 });
 console.log(str_vcard);
+const [downloadFlag, setDownloadFlag] = useState<boolean>(false);
 const email = data.email
-    
+const { toPDF, targetRef } = usePDF({ filename: 'page.pdf' });   
+const handleDownload = async () => {
+  const divRef = document.getElementById('my-qr'); 
+  if (divRef) {
+    const canvas = await html2canvas(divRef);
+    const imgData = canvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.href = imgData;
+    link.download = 'my-div-image.png';
+    link.click();
+  }
+};
         const add_staff = () => {
           const firstName = data.firstName;
           const surname = data.surname;
@@ -183,9 +199,31 @@ const email = data.email
               </div>
             </div>
           </div>
+          {/* <button className="flex items-center justify-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600" onClick={handleDownload}>
+  <FontAwesomeIcon icon={faFilePdf} className="text-white" width={16} height={16} />
+  <span className="text-base">Save as PDF</span>
+</button>
+
+<button className="flex items-center justify-center gap-2 mt-4 px-4 py-2 mb-4 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600" onClick={() => toPDF()}>
+  <FontAwesomeIcon icon={faFileImage} className="text-white" width={16} height={16} />
+  <span className="text-base">Save as Image</span>
+</button> */}
+{ downloadFlag &&
+<div className="flex space-x-4 ml-12">
+  <button className="flex items-center gap-2 px-4 py-2 bg-white text-gray-700 rounded-md hover:bg-gray-100 focus:outline-none focus:bg-gray-100 border border-gray-300" onClick={handleDownload}>
+    <FontAwesomeIcon icon={faFilePdf} className="text-gray-700" width={16} height={16} />
+    <span className="text-base">Save as PDF</span>
+  </button>
+
+  <button className="flex items-center gap-2 px-4 py-2 bg-white text-gray-700 rounded-md hover:bg-gray-100 focus:outline-none focus:bg-gray-100 border border-gray-300" onClick={() => toPDF()}>
+    <FontAwesomeIcon icon={faFileImage} className="text-gray-700" width={16} height={16} />
+    <span className="text-base">Save as Image</span>
+  </button>
+</div>
+}
           <div className="flex-[0.5] flex flex-col justify-center items-center mb-[10px]">
-            <button className="w-[150px] h-[40px] bg-gradient-to-r from-[#54afe0] via-[#0579B8] to-[#5dc0f5] rounded-2xl">
-              <h4 className="text-white font-thin font-serif" style={{ fontSize: "16px" }}>Create Card</h4>
+            <button onClick={() => setDownloadFlag(!downloadFlag)}className="w-[150px] h-[40px] bg-gradient-to-r from-[#54afe0] via-[#0579B8] to-[#5dc0f5] rounded-2xl">
+              <h4 className="text-white font-thin font-serif" style={{ fontSize: "16px" }}>Get Card</h4>
             </button>
           </div>
         </div>
@@ -199,7 +237,7 @@ const email = data.email
             </div>
           </div>
           <div className="flex-[10] mt-[25px] flex flex-col gap-[20px] ">
-            <div className=" bg-[#ffffff] w-[320px] h-[200px] shadow-lg flex flex-col gap-1">
+            <div id="my-qr" ref={targetRef} className=" bg-[#ffffff] w-[320px] h-[200px] shadow-lg flex flex-col gap-1">
               {/* <FontAwesomeIcon icon={faStar} className='text-[#00000020] opacity-100' width={20} height={20}/> */}
               <div className="flex-[2] flex flex-row justify-between items-start ">
                 <div className="bg-[#000000] w-[15px] h-full ml-[30px] "></div>
