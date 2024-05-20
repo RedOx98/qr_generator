@@ -5,6 +5,7 @@ import Nav from "@/components/Nav";
 
 const inter = Inter({ subsets: ["latin"] });
 // const cantarell = Cantarell();
+const login: boolean = false;
 
 export const metadata: Metadata = {
   title: "Ecobank VCC",
@@ -22,7 +23,11 @@ export default function RootLayout({
       <link href={cantarell} rel="stylesheet" />
       </head> */}
       <body className={inter.className}>
-        <Nav/>
+        {login?
+          <Nav/>
+          :
+           null
+          }
         {children}
         </body>
     </html>
