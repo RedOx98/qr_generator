@@ -14,7 +14,7 @@ const Nav = () => {
             <div className="flex-[2] flex flex-row items-center">
                 <div className="flex flex-1 items-center justify-center ml-[2.5] w-[150px] border-red-500">
                     <Link href='/'>
-                <Image className='ml-3 opacity-60 cursor-pointer' src="/images/matrixlogo.png" alt='/' width={150} height={150} />
+                <Image className='ml-3 opacity-60 cursor-pointer' src="/images/Ecologo3.png" alt='/' width={150} height={150} />
                     </Link>
                 </div>
                 <div className="flex flex-[3] flex-row items-end justify-center w-[300px] mr-[100px] border-red-500 gap-[55px] mt-[50px]">
