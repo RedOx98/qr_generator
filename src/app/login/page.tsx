@@ -16,12 +16,12 @@ const page = () => {
                     <hr className="w-[70px] h-[6px] bg-[#10A2DC] ml-[140px] rounded-lg" />
                     </div>
                     <div className="flex flex-col justify-center items-center gap-4 flex-[5]">
-                  <div className="flex flex-col justify-center items-center">
+                  <div className="flex flex-col justify-center items-center mt-[35px]">
                     <div className="">
-                    <label htmlFor="email" className="">
+                    {/* <label htmlFor="email" className="">
                       <h3 className="text-black font-extralight">Email</h3>
-                    </label>
-                    <input type="text" className="w-[400px] h-[35px] rounded-xl text-center" style={{border: "1px solid #10A2DC"}} placeholder="username@ecobank.com" />
+                    </label> */}
+                    {/* <input type="text" className="w-[400px] h-[35px] rounded-xl text-center" style={{border: "1px solid #10A2DC"}} placeholder="username@ecobank.com" /> */}
                     </div>
                   </div>
                   <div className=" flex flex-col items-center justify-center">
