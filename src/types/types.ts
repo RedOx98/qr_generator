@@ -13,3 +13,8 @@ export type StaffType = {
     phoneWork: string
     phoneHome: string
 }
+
+export type Credential = {
+    username: string,
+    password: string,
+  };
