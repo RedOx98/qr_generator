@@ -9,6 +9,11 @@ import Image from 'next/image';
 import { useEffect, useState } from "react";
 import html2canvas from 'html2canvas';
 import { usePDF } from 'react-to-pdf';
+import React from "react";
+import ReactDOM from "react-dom";
+import QRCode from "react-qr-code";
+
+
 
 
 type Input = {
@@ -17,12 +22,13 @@ type Input = {
 
 
 export default function Home() {
+ 
   const { toPDF, targetRef } = usePDF({ filename: 'page.pdf' });
 
   const [staffId, setStaffId] = useState<string>('');
   const [qr, setQr] = useState<string | null>(null);
-  console.log(staffId);
-  console.log(qr);
+  const [image, setImage] = useState<string>("");
+
   const [data, setData] = useState<StaffType>({
     department: "",
     email: "",
@@ -38,6 +44,14 @@ export default function Home() {
     url: "",
     username: "",
 });
+const hub:string = `
+BEGIN:VCARD
+VERSION:3.0
+FN:Jane Smith
+TEL:+19876543210
+EMAIL:jane.smith@example.com
+END:VCARD            
+`;
 
 
   const handleDownload = async () => {
@@ -53,108 +67,139 @@ export default function Home() {
   };
 
 
-console.log(data?.department);
+
 const email = data?.email
-    var goog_chart = 'http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=';
-    const [image, setImage] = useState(goog_chart);
-    var str_start = 'BEGIN:VCARD\nVERSION:3.0\n';
-        var str_vcard = 'BEGIN:VCARD\nVERSION:3.0\n';
-        var str_end = '\nEND:VCARD';
+    // var goog_chart = 'http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=';
+    // const [image, setImage] = useState("");
+    // var str_start = 'BEGIN:VCARD\nVERSION:3.0\n';
+  //    var str_vcard = 'BEGIN:VCARD\nVERSION:3.0\n';
+    //     var str_end = '\nEND:VCARD';
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     //  React.ChangeEvent<HTMLInputElement> | undefined
     setStaffId(e.target.value)
-    // console.log(staffId);
+    //  console.log("Here"+e.target.value);
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    try {
-      const res = await fetch(`https://quickchart.io/qr?text=https://localhost:3000/staffInfo/${staffId}&format=png`, {
-      method: 'GET',
-      headers: {
-        "Content-Type": "image/png"
-      }
-    })
+    // try {
+    //   const res = await fetch(`https://quickchart.io/qr?text=https://localhost:3000/staffInfo/${staffId}&format=png`, {
+    //   method: 'GET',
+    //   headers: {
+    //     "Content-Type": "image/png"
+    //   }
+    // })
     
-    const blob = await res.blob();
-    const blobUrl = URL.createObjectURL(blob);
-    console.log(blobUrl)
-    setQr(blobUrl);
-    } catch (err) {
-      console.log(err);
+    // const blob = await res.blob();
+    // const blobUrl = URL.createObjectURL(blob);
+    // console.log(blobUrl)
+    // setQr(blobUrl);
+    // } catch (err) {
+    //   console.log(err);
       
-    }
+    // }
   }
 
   useEffect(() => {
+  
     const fetchStaff = async () => {
-        const staffNo: number = 10928;
+        
+        // const staffNo: number = 11357;
         try {
             const res = await fetch(`http://localhost:3000/api/staffinfo/${staffId}`, {});
 
             if (!res.ok) {
                 throw new Error("Failed to fetch");
             }
+         
+            // const hub:string = `
+            // BEGIN:VCARD
+            // VERSION:3.0
+            // FN:Jane Smith
+            // TEL:+19876543210
+            // EMAIL:jane.smith@example.com
+            // END:VCARD            
+            // `;
+        //     var opts = {
+        //       width: 480,
+        //       // errorCorrectionLevel: 'H',
+        //       type: 'string',
+        //       // quality: 0.3,
+        //       // margin: 1,
+             
+        //       //color: {
+        //       //   dark:"#010599FF",
+        //       //   light:"#FFBF60FF"
+        //       // }
+        //     }
+        // await    QRCode.toString(hub,opts,  function (err:string, string:string) {
+        //       if (err) throw err
+        //       setImage(string);
+        //       console.log(string);
+        //     })
 
+
+console.log("skksksks")
             const data = await res.json();
             // console.log(data);
             setData(data.data);
-            const add_staff = () => {
+
+            // const add_staff = () => {
         const firstName = data?.data?.firstName;
         const surname = data?.data?.surname;
         const otherNames = data?.data?.otherNames;
         // const birthday = vcard.get_field("birthday");
         // const gender = vcard.get_field("gender");
-        return str_vcard += 'N:' + surname + ';' + firstName + ';' + otherNames + '\n' +
-            'FN:' + firstName + ' ' + surname + ' ' + otherNames;
+        // return str_vcard += 'N:' + surname + ';' + firstName + ';' + otherNames + '\n' +
+        //     'FN:' + firstName + ' ' + surname + ' ' + otherNames;
 
-        // if (birthday !== '') {
-        //     vcard.str_vcard += '\nBDAY:' + birthday;
-        // };
-        // if (gender !== '') {
-        //     vcard.str_vcard += '\nX-Gender:'+ gender;
-        // }
-    };
-    const add_address = () => {
+        // // if (birthday !== '') {
+        // //     vcard.str_vcard += '\nBDAY:' + birthday;
+        // // };
+        // // if (gender !== '') {
+        // //     vcard.str_vcard += '\nX-Gender:'+ gender;
+        // // }
+    // };
+    // const add_address = () => {
         const physical_address = data?.data?.physicalAddress;
         // console.log(physical_address)
-        const department = data?.data?.department;
-        // if(physical_address + department !== '')
-        return str_vcard += '\nADR;TYPE=home:;;'+physical_address+';'+department;
-    };
-    const add_email = () => {
+        // const department = data?.data?.department;
+        // // if(physical_address + department !== '')
+        // return str_vcard += '\nADR;TYPE=home:;;'+physical_address+';'+department;
+    // };
+    // const add_email = () => {
         const work_mail = data?.data?.email;
-        console.log(work_mail);
+        // console.log(work_mail);
         // data?.data?.email;
         // const home_mail = vcard.get_field(res?.email);
-        return str_vcard += '\nEMAIL;TYPE=internet,home:'+work_mail;
-    };
-    const add_tel = () => {
+        // return str_vcard += '\nEMAIL;TYPE=internet,home:'+work_mail;
+    // };
+    // const add_tel = () => {
         // const home = vcard.get_field(res?.email?.toString();
         const work = data?.data?.phoneWork;
-        return str_vcard += '\nTEL;TYPE=work:'+work;
-    };
-    const add_url = ()=> {
+        // return str_vcard += '\nTEL;TYPE=work:'+work;
+    // };
+    // const add_url = ()=> {
         const urlWork = data?.data?.url;
-        return str_vcard += '\nURL;TYPE=work:'+urlWork;
-    };
-    const save = ()=> {
-        add_staff();
-        add_address();
-        add_tel()
-        add_email();
-        add_url();
-        // add_work;
+        // return str_vcard += '\nURL;TYPE=work:'+urlWork;
+    // };
+    // const save = ()=> {
+    //     add_staff();
+    //     add_address();
+    //     add_tel()
+    //     add_email();
+    //     add_url();
+    //     // add_work;
 
-        str_vcard += str_end;
-        // console.log(str_vcard)
+    //     str_vcard += str_end;
+    //     // console.log(str_vcard)
 
-        const formatres = goog_chart+str_vcard.replace(/\n/g,'%0A');
-        setImage(formatres)
-        // return formatres;
-    }
-            save();
+    //     // const formatres = goog_chart+str_vcard.replace(/\n/g,'%0A');
+    //     // setImage(formatres)
+    //     // return formatres;
+    // }
+    //         save();
         } catch (err) {
             console.log(err);
         }
@@ -197,7 +242,7 @@ const email = data?.email
         <div className="flex flex-row rounded-2xl w-[374px] h-[33px] justify-center items-center bg-[#AFC2D490]" style={{border: "1.5px solid #C6DBF0"}}>
           <div className="flex justify-center items-center" >
           {/* <input type="text" className="w-[300px] border-none outline-none" placeholder="Lookup Username"/> */}
-          <input type="text" className="firstName w-[350px] border-b-[1px] focus:border-b-1 outline-none bg-gradient-to-r from-[#c2d0dd] via-[#B3C1D0] to-[#c2d0dd] text-center focus:bg-gradient-to-r focus:from-[#C6DBF0] focus:via-[#B3C1D0] focus:to-[#AFC2D4] focus:text-center focus:text-[14px] focus:font-sans h-[33px] rounded-xl" placeholder="Lookup Username" onChange={handleChange}/>
+          <input type="text" className="firstName w-[350px] border-b-[1px] focus:border-b-1 outline-none bg-gradient-to-r from-[#c2d0dd] via-[#B3C1D0] to-[#c2d0dd] text-center focus:bg-gradient-to-r focus:from-[#C6DBF0] focus:via-[#B3C1D0] focus:to-[#AFC2D4] focus:text-center focus:text-[14px] focus:font-sans h-[33px] rounded-xl" placeholder="Enter Your Staff id." onChange={handleChange}/>
           </div>
           <div className="bg-[#ACBFD2] w-[20px] h-[20px] rounded-full flex justify-center items-center">
           <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#000000] opacity-100 cursor-pointer p-[1px]' width={16} height={16}/>
@@ -226,7 +271,7 @@ const email = data?.email
             <FontAwesomeIcon icon={faAngleLeft} className='text-[#89aed0] opacity-100 cursor-pointer' width={40} height={30}/>
             </div>
           <div className="mb-[20px]">
-          <div id="my-qr" ref={targetRef} className=" bg-[#ffffff] w-[320px] h-[200px] shadow-lg flex flex-col gap-1 rounded-[10px] relative">
+           <div id="my-qr" ref={targetRef} className=" bg-[#ffffff] w-[320px] h-[200px] shadow-lg flex flex-col gap-1 rounded-[10px] relative">
               {/* <FontAwesomeIcon icon={faStar} className='text-[#00000020] opacity-100' width={20} height={20}/> */}
               <div className="flex-[2] flex flex-row justify-between items-start ">
                 <div className="bg-[#000000] w-[15px] h-full ml-[30px] "></div>
@@ -253,6 +298,7 @@ const email = data?.email
                   </div>
                 </div>
               </div>
+              <div className="flex gap-8">
               <div className="flex-[4] flex flex-col gap-3 ">
                 <div className="flex flex-row w-full gap-6">
                   <div className="bg-[#000000] w-[15px] h-full ml-[30px] flex items-center justify-center">
@@ -276,7 +322,9 @@ const email = data?.email
                       <h5 className="font-extralight text-[12px]">{data?.email}</h5>
                     }
                   </div>
+                  
                 </div>
+                
                 <div className="flex flex-row w-full gap-6">
                   <div className="bg-[#000000] w-[15px] h-full ml-[30px] flex items-center justify-center">
                     <FontAwesomeIcon icon={faSpider} className='text-[#ffff] opacity-100' width={8} height={8} />
@@ -298,15 +346,18 @@ const email = data?.email
                   </div>
                 </div>
               </div>
-              <div className="flex-[0.5] flex items-end justify-end">
-              <div className="flex-1 absolute top-[60px] right-[35px] ">
+              <div className="ml-2 mr-8 h-80 w-80 mt-8">
                 {
-                  data?.staffIdNo == '' ? <Image src="http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=" alt='Passport Photograph' width={60} height={60} className='rounded-lg'/> 
-                  :
-                   <Image src={image} alt='Passport Photograph' width={60} height={60} className='rounded-lg'/>
+                  // data?.staffIdNo == '' ? <Image src="http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=" alt='Passport Photograph' width={60} height={60} className='rounded-lg'/> 
+                  // :
+                  //image
+                  <QRCode value={hub}   size={256}
+                  style={{ height: "80px", maxWidth: "80px", width: "80px" }}/>
+                 
+                  // <Image src={image} alt='Passport Photograph' width={60} height={60} className='rounded-lg'/>
                 }
                         
-                    </div>
+                   </div>
               </div>
               
             </div>
