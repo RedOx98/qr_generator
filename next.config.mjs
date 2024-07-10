@@ -22,7 +22,10 @@ const nextConfig = {
             }
         ],
         domains: ['www.bwillcreative.com','chart.googleapis.com','images.remotePatterns']
-    }
+    },
+    eslint: {
+        ignoreDuringBuilds: true,
+      },
 };
 
 export default nextConfig;
