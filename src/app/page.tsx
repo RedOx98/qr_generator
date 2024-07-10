@@ -5,12 +5,10 @@ import { faAngleDoubleDown } from "@fortawesome/free-solid-svg-icons/faAngleDoub
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons/faAngleRight";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { StaffType } from '@/types/types';
-import Image from 'next/image';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import html2canvas from 'html2canvas';
 import { usePDF } from 'react-to-pdf';
 import React from "react";
-import ReactDOM from "react-dom";
 import QRCode from "react-qr-code";
 
 
@@ -24,11 +22,6 @@ type Input = {
 export default function Home() {
  
   const { toPDF, targetRef } = usePDF({ filename: 'page.pdf' });
-
-  const [staffId, setStaffId] = useState<string>('');
-  const [qr, setQr] = useState<string | null>(null);
-  const [image, setImage] = useState<string>("");
-  const [res, setRes] = useState<string>("");
 
   const [data, setData] = useState<StaffType>({
     department: "John doe",
@@ -45,6 +38,8 @@ export default function Home() {
     url: "whatsapp",
     username: "jDOE",
 });
+const [res, setRes] = useState<String>("");
+
 const hub:string = `
 BEGIN:VCARD
 VERSION:2.1
@@ -78,11 +73,6 @@ const email = data?.email
     var str_start = 'BEGIN:VCARD\nVERSION:3.0\n';
      var str_vcard = 'BEGIN:VCARD\nVERSION:3.0\n';
         var str_end = '\nEND:VCARD';
-  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    //  React.ChangeEvent<HTMLInputElement> | undefined
-    setStaffId(e.target.value)
-    //  console.log("Here"+e.target.value);
-  }
 
   
     const fetchStaff = () => {
