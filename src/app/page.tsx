@@ -105,111 +105,111 @@ const email = data?.email
     // }
   }
 
-  useEffect(() => {
+//   useEffect(() => {
   
-    const fetchStaff = async () => {
+//     const fetchStaff = async () => {
         
-        // const staffNo: number = 11357;
-        try {
-            const res = await fetch(`http://localhost:3000/api/staffinfo/${staffId}`, {});
+//         // const staffNo: number = 11357;
+//         try {
+//             const res = await fetch(`http://localhost:3000/api/staffinfo/${staffId}`, {});
 
-            if (!res.ok) {
-                throw new Error("Failed to fetch");
-            }
+//             if (!res.ok) {
+//                 throw new Error("Failed to fetch");
+//             }
          
-            // const hub:string = `
-            // BEGIN:VCARD
-            // VERSION:3.0
-            // FN:Jane Smith
-            // TEL:+19876543210
-            // EMAIL:jane.smith@example.com
-            // END:VCARD            
-            // `;
-        //     var opts = {
-        //       width: 480,
-        //       // errorCorrectionLevel: 'H',
-        //       type: 'string',
-        //       // quality: 0.3,
-        //       // margin: 1,
+//             // const hub:string = `
+//             // BEGIN:VCARD
+//             // VERSION:3.0
+//             // FN:Jane Smith
+//             // TEL:+19876543210
+//             // EMAIL:jane.smith@example.com
+//             // END:VCARD            
+//             // `;
+//         //     var opts = {
+//         //       width: 480,
+//         //       // errorCorrectionLevel: 'H',
+//         //       type: 'string',
+//         //       // quality: 0.3,
+//         //       // margin: 1,
              
-        //       //color: {
-        //       //   dark:"#010599FF",
-        //       //   light:"#FFBF60FF"
-        //       // }
-        //     }
-        // await    QRCode.toString(hub,opts,  function (err:string, string:string) {
-        //       if (err) throw err
-        //       setImage(string);
-        //       console.log(string);
-        //     })
+//         //       //color: {
+//         //       //   dark:"#010599FF",
+//         //       //   light:"#FFBF60FF"
+//         //       // }
+//         //     }
+//         // await    QRCode.toString(hub,opts,  function (err:string, string:string) {
+//         //       if (err) throw err
+//         //       setImage(string);
+//         //       console.log(string);
+//         //     })
 
 
-console.log("skksksks")
-            const data = await res.json();
-            // console.log(data);
-            setData(data.data);
+// console.log("skksksks")
+//             const data = await res.json();
+//             // console.log(data);
+//             setData(data.data);
 
-            // const add_staff = () => {
-        const firstName = data?.data?.firstName;
-        const surname = data?.data?.surname;
-        const otherNames = data?.data?.otherNames;
-        // const birthday = vcard.get_field("birthday");
-        // const gender = vcard.get_field("gender");
-        // return str_vcard += 'N:' + surname + ';' + firstName + ';' + otherNames + '\n' +
-        //     'FN:' + firstName + ' ' + surname + ' ' + otherNames;
+//             // const add_staff = () => {
+//         const firstName = data?.data?.firstName;
+//         const surname = data?.data?.surname;
+//         const otherNames = data?.data?.otherNames;
+//         // const birthday = vcard.get_field("birthday");
+//         // const gender = vcard.get_field("gender");
+//         // return str_vcard += 'N:' + surname + ';' + firstName + ';' + otherNames + '\n' +
+//         //     'FN:' + firstName + ' ' + surname + ' ' + otherNames;
 
-        // // if (birthday !== '') {
-        // //     vcard.str_vcard += '\nBDAY:' + birthday;
-        // // };
-        // // if (gender !== '') {
-        // //     vcard.str_vcard += '\nX-Gender:'+ gender;
-        // // }
-    // };
-    // const add_address = () => {
-        const physical_address = data?.data?.physicalAddress;
-        // console.log(physical_address)
-        // const department = data?.data?.department;
-        // // if(physical_address + department !== '')
-        // return str_vcard += '\nADR;TYPE=home:;;'+physical_address+';'+department;
-    // };
-    // const add_email = () => {
-        const work_mail = data?.data?.email;
-        // console.log(work_mail);
-        // data?.data?.email;
-        // const home_mail = vcard.get_field(res?.email);
-        // return str_vcard += '\nEMAIL;TYPE=internet,home:'+work_mail;
-    // };
-    // const add_tel = () => {
-        // const home = vcard.get_field(res?.email?.toString();
-        const work = data?.data?.phoneWork;
-        // return str_vcard += '\nTEL;TYPE=work:'+work;
-    // };
-    // const add_url = ()=> {
-        const urlWork = data?.data?.url;
-        // return str_vcard += '\nURL;TYPE=work:'+urlWork;
-    // };
-    // const save = ()=> {
-    //     add_staff();
-    //     add_address();
-    //     add_tel()
-    //     add_email();
-    //     add_url();
-    //     // add_work;
+//         // // if (birthday !== '') {
+//         // //     vcard.str_vcard += '\nBDAY:' + birthday;
+//         // // };
+//         // // if (gender !== '') {
+//         // //     vcard.str_vcard += '\nX-Gender:'+ gender;
+//         // // }
+//     // };
+//     // const add_address = () => {
+//         const physical_address = data?.data?.physicalAddress;
+//         // console.log(physical_address)
+//         // const department = data?.data?.department;
+//         // // if(physical_address + department !== '')
+//         // return str_vcard += '\nADR;TYPE=home:;;'+physical_address+';'+department;
+//     // };
+//     // const add_email = () => {
+//         const work_mail = data?.data?.email;
+//         // console.log(work_mail);
+//         // data?.data?.email;
+//         // const home_mail = vcard.get_field(res?.email);
+//         // return str_vcard += '\nEMAIL;TYPE=internet,home:'+work_mail;
+//     // };
+//     // const add_tel = () => {
+//         // const home = vcard.get_field(res?.email?.toString();
+//         const work = data?.data?.phoneWork;
+//         // return str_vcard += '\nTEL;TYPE=work:'+work;
+//     // };
+//     // const add_url = ()=> {
+//         const urlWork = data?.data?.url;
+//         // return str_vcard += '\nURL;TYPE=work:'+urlWork;
+//     // };
+//     // const save = ()=> {
+//     //     add_staff();
+//     //     add_address();
+//     //     add_tel()
+//     //     add_email();
+//     //     add_url();
+//     //     // add_work;
 
-    //     str_vcard += str_end;
-    //     // console.log(str_vcard)
+//     //     str_vcard += str_end;
+//     //     // console.log(str_vcard)
 
-    //     // const formatres = goog_chart+str_vcard.replace(/\n/g,'%0A');
-    //     // setImage(formatres)
-    //     // return formatres;
-    // }
-    //         save();
-        } catch (err) {
-            console.log(err);
-        }
-    }
-    fetchStaff();
-}, [staffId])
+//     //     // const formatres = goog_chart+str_vcard.replace(/\n/g,'%0A');
+//     //     // setImage(formatres)
+//     //     // return formatres;
+//     // }
+//     //         save();
+//         } catch (err) {
+//             console.log(err);
+//         }
+//     }
+//     fetchStaff();
+// }, [staffId])
   // bg-[#BFCBD7]
   return (
   <div className="w-full max-h-screen  flex flex-row items-center justify-center  bg-gradient-to-r from-[#f2f4f790] via-[#eaf0f7] to-[#edf0f2] z-[-99] overscroll-none">
