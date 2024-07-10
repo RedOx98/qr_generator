@@ -46,11 +46,15 @@ export default function Home() {
 });
 const hub:string = `
 BEGIN:VCARD
-VERSION:3.0
-FN:Jane Smith
-TEL:+19876543210
-EMAIL:jane.smith@example.com
-END:VCARD            
+VERSION:2.1
+N:Adebayo;Temitope
+FN:Temitope Adebayo
+ORG:Nigeria Inter-Bank Settlement System PLC
+TITLE:Head, Instant Payment Platform Operations
+TEL;WORK;VOICE:+234 803 430 6657
+ADR;WORK:;;1230 Ahmadu Bello Way;Victoria Island;Lagos;12617;Nigeria
+EMAIL;PREF;INTERNET:tadebayo@nibss-plc.com.ng
+END:VCARD     
 `;
 
 
