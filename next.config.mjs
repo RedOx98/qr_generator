@@ -21,7 +21,7 @@ const nextConfig = {
                 pathname: "/**"
             }
         ],
-        domains: ['www.bwillcreative.com','chart.googleapis.com']
+        domains: ['www.bwillcreative.com','chart.googleapis.com','images.remotePatterns']
     }
 };
 
