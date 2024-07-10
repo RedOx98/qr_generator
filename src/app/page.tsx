@@ -28,21 +28,22 @@ export default function Home() {
   const [staffId, setStaffId] = useState<string>('');
   const [qr, setQr] = useState<string | null>(null);
   const [image, setImage] = useState<string>("");
+  const [res, setRes] = useState<string>("");
 
   const [data, setData] = useState<StaffType>({
-    department: "",
-    email: "",
-    firstName: "",
-    id: "",
-    jobRole: "",
-    otherNames: "",
-    phoneHome: "",
-    phoneWork: "",
-    physicalAddress: "",
-    staffIdNo: "",
-    surname: "",
-    url: "",
-    username: "",
+    department: "John doe",
+    email: "JohnDoe@gmail.com",
+    firstName: "John",
+    id: "123456",
+    jobRole: "EPI-Technology",
+    otherNames: "DOE",
+    phoneHome: "+2345678989900",
+    phoneWork: "+2346789909909",
+    physicalAddress: "EPAC",
+    staffIdNo: "12345",
+    surname: "DOE",
+    url: "whatsapp",
+    username: "jDOE",
 });
 const hub:string = `
 BEGIN:VCARD
@@ -73,161 +74,41 @@ END:VCARD
 
 
 const email = data?.email
-    // var goog_chart = 'http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=';
-    // const [image, setImage] = useState("");
-    // var str_start = 'BEGIN:VCARD\nVERSION:3.0\n';
-  //    var str_vcard = 'BEGIN:VCARD\nVERSION:3.0\n';
-    //     var str_end = '\nEND:VCARD';
+    var goog_chart = 'http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=';
+    var str_start = 'BEGIN:VCARD\nVERSION:3.0\n';
+     var str_vcard = 'BEGIN:VCARD\nVERSION:3.0\n';
+        var str_end = '\nEND:VCARD';
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     //  React.ChangeEvent<HTMLInputElement> | undefined
     setStaffId(e.target.value)
     //  console.log("Here"+e.target.value);
   }
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    // try {
-    //   const res = await fetch(`https://quickchart.io/qr?text=https://localhost:3000/staffInfo/${staffId}&format=png`, {
-    //   method: 'GET',
-    //   headers: {
-    //     "Content-Type": "image/png"
-    //   }
-    // })
-    
-    // const blob = await res.blob();
-    // const blobUrl = URL.createObjectURL(blob);
-    // console.log(blobUrl)
-    // setQr(blobUrl);
-    // } catch (err) {
-    //   console.log(err);
-      
-    // }
-  }
-
-//   useEffect(() => {
   
-//     const fetchStaff = async () => {
+    const fetchStaff = () => {
+        const firstName = data?.firstName;
+        const surname = data?.surname;
+        const otherNames = data?.otherNames;
+        const department = data?.department;
+        const physical_address = data?.physicalAddress;
+        const work_mail = data?.email;
+        const tel = data?.phoneWork;
+        str_vcard += str_end;
+         str_vcard += 'N:' + surname + ';' + firstName + ';' + otherNames + '\n' +
+            'FN:' + firstName + ' ' + surname + ' ' + otherNames+ ' ' + department+ ' ' + physical_address+ ' ' + work_mail+ ' ' + tel+ ' ' + str_vcard;
+            const formatres:string = str_vcard.replace(/\n/g,'%0A');
+            setRes(formatres)
         
-//         // const staffNo: number = 11357;
-//         try {
-//             const res = await fetch(`http://localhost:3000/api/staffinfo/${staffId}`, {});
-
-//             if (!res.ok) {
-//                 throw new Error("Failed to fetch");
-//             }
-         
-//             // const hub:string = `
-//             // BEGIN:VCARD
-//             // VERSION:3.0
-//             // FN:Jane Smith
-//             // TEL:+19876543210
-//             // EMAIL:jane.smith@example.com
-//             // END:VCARD            
-//             // `;
-//         //     var opts = {
-//         //       width: 480,
-//         //       // errorCorrectionLevel: 'H',
-//         //       type: 'string',
-//         //       // quality: 0.3,
-//         //       // margin: 1,
-             
-//         //       //color: {
-//         //       //   dark:"#010599FF",
-//         //       //   light:"#FFBF60FF"
-//         //       // }
-//         //     }
-//         // await    QRCode.toString(hub,opts,  function (err:string, string:string) {
-//         //       if (err) throw err
-//         //       setImage(string);
-//         //       console.log(string);
-//         //     })
-
-
-// console.log("skksksks")
-//             const data = await res.json();
-//             // console.log(data);
-//             setData(data.data);
-
-//             // const add_staff = () => {
-//         const firstName = data?.data?.firstName;
-//         const surname = data?.data?.surname;
-//         const otherNames = data?.data?.otherNames;
-//         // const birthday = vcard.get_field("birthday");
-//         // const gender = vcard.get_field("gender");
-//         // return str_vcard += 'N:' + surname + ';' + firstName + ';' + otherNames + '\n' +
-//         //     'FN:' + firstName + ' ' + surname + ' ' + otherNames;
-
-//         // // if (birthday !== '') {
-//         // //     vcard.str_vcard += '\nBDAY:' + birthday;
-//         // // };
-//         // // if (gender !== '') {
-//         // //     vcard.str_vcard += '\nX-Gender:'+ gender;
-//         // // }
-//     // };
-//     // const add_address = () => {
-//         const physical_address = data?.data?.physicalAddress;
-//         // console.log(physical_address)
-//         // const department = data?.data?.department;
-//         // // if(physical_address + department !== '')
-//         // return str_vcard += '\nADR;TYPE=home:;;'+physical_address+';'+department;
-//     // };
-//     // const add_email = () => {
-//         const work_mail = data?.data?.email;
-//         // console.log(work_mail);
-//         // data?.data?.email;
-//         // const home_mail = vcard.get_field(res?.email);
-//         // return str_vcard += '\nEMAIL;TYPE=internet,home:'+work_mail;
-//     // };
-//     // const add_tel = () => {
-//         // const home = vcard.get_field(res?.email?.toString();
-//         const work = data?.data?.phoneWork;
-//         // return str_vcard += '\nTEL;TYPE=work:'+work;
-//     // };
-//     // const add_url = ()=> {
-//         const urlWork = data?.data?.url;
-//         // return str_vcard += '\nURL;TYPE=work:'+urlWork;
-//     // };
-//     // const save = ()=> {
-//     //     add_staff();
-//     //     add_address();
-//     //     add_tel()
-//     //     add_email();
-//     //     add_url();
-//     //     // add_work;
-
-//     //     str_vcard += str_end;
-//     //     // console.log(str_vcard)
-
-//     //     // const formatres = goog_chart+str_vcard.replace(/\n/g,'%0A');
-//     //     // setImage(formatres)
-//     //     // return formatres;
-//     // }
-//     //         save();
-//         } catch (err) {
-//             console.log(err);
-//         }
-//     }
-//     fetchStaff();
-// }, [staffId])
+        // return formatres;
+        // setRes(formatres)
+    }
+        
+    
+    
   // bg-[#BFCBD7]
   return (
   <div className="w-full max-h-screen  flex flex-row items-center justify-center  bg-gradient-to-r from-[#f2f4f790] via-[#eaf0f7] to-[#edf0f2] z-[-99] overscroll-none">
-    {/* <div className="w-[1/2] h-1/2 flex items-center justify-center z-[999]">
-    <form action="" className="w-[400px] h-[500px] flex flex-col" onSubmit={handleSubmit}>
-      <h4 className="text-black">This for the form</h4>
-      <input type="text" name='staffId' value={staffId} className="w-[300px] h-[60px] rounded-md" placeholder="Enter your staff ID" onChange={handleChange}/>
-
-      <button className="w-[200px] h-[70px] bg-red-500 rounded-xl mt-[20px]" type="submit">Submit ID</button>
-    </form>
-
-    {qr && (
-          <div>
-            <h4 className="text-white">Generated QR Code</h4>
-            <Image src={qr} alt="QR Code" height={200} width={200}/>
-          </div>
-        )}
-    </div> */}
+   {/* Another onSubmit use to be here... */}
 
 {/* LEFT */}
     <div className="flex-1 flex flex-col justify-center items-center gap-2">
@@ -243,15 +124,7 @@ const email = data?.email
             </div>
           </div>
       <div className="flex flex-col gap-4 justify-center items-center mb-[50px]">
-        <div className="flex flex-row rounded-2xl w-[374px] h-[33px] justify-center items-center bg-[#AFC2D490]" style={{border: "1.5px solid #C6DBF0"}}>
-          <div className="flex justify-center items-center" >
-          {/* <input type="text" className="w-[300px] border-none outline-none" placeholder="Lookup Username"/> */}
-          <input type="text" className="firstName w-[350px] border-b-[1px] focus:border-b-1 outline-none bg-gradient-to-r from-[#c2d0dd] via-[#B3C1D0] to-[#c2d0dd] text-center focus:bg-gradient-to-r focus:from-[#C6DBF0] focus:via-[#B3C1D0] focus:to-[#AFC2D4] focus:text-center focus:text-[14px] focus:font-sans h-[33px] rounded-xl" placeholder="Enter Your Staff id." onChange={handleChange}/>
-          </div>
-          <div className="bg-[#ACBFD2] w-[20px] h-[20px] rounded-full flex justify-center items-center">
-          <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#000000] opacity-100 cursor-pointer p-[1px]' width={16} height={16}/>
-          </div>
-        </div>
+        {/* a refactored input your staff id number use to be here */}
         <div className="flex flex-col w-[250px] h-[85px] justify-center items-center relative">
           <div className="w-[40px] h-[40px] rounded-full flex justify-center items-center bg-white absolute top-[]"  style={{border: "1px solid black"}}>
             <h3 className="text-black font-thin font-serif text-[30px]">2</h3>
