@@ -10,6 +10,12 @@ const nextConfig = {
             },
             {
                 protocol: "https",
+                hostname: "images.remotePatterns",
+                port: "",
+                pathname: "/**"
+            },
+            {
+                protocol: "https",
                 hostname: "flaticon.com",
                 port: "",
                 pathname: "/**"
