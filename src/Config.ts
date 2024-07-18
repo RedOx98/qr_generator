@@ -1,6 +1,6 @@
 export const config = {
     appId: '35fb369d-d924-4bfb-8bc9-37b59add6ff9',
-    redirectUrl: 'http://localhost:3000',
+    redirectUrl: 'https://qr-generator-seven-red.vercel.app/',
     scopes: ['User.Read'],
     authority: 'https://login.microsoftonline.com/6400df67-1817-484e-84ae-ed3b97ca1620'
 };
