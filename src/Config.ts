@@ -11,4 +11,6 @@ export const config = {
 //     scopes: ['User.Read'],
 //     authority: 'https://login.microsoftonline.com/2ad72c11-ca14-4743-95d6-fbbe0f001056'
 // };
+
+// https://qr-generator-seven-red.vercel.app/
  

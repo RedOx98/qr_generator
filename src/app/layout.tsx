@@ -2,15 +2,16 @@ import type { Metadata } from "next";
 import { Inter, Cantarell } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ["latin"] });
-// const cantarell = Cantarell();
-const login: boolean = true;
 
 export const metadata: Metadata = {
   title: "Ecobank VCC",
   description: "Virtual Complimentary card Generator",
 };
+
 
 export default function RootLayout({
   children,
@@ -19,15 +20,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* <head>
-      <link href={cantarell} rel="stylesheet" />
-      </head> */}
+      
       <body className={inter.className}>
-        {login?
+       
           <Nav/>
-          :
-           null
-          }
+          
+           <ToastContainer position="bottom-right" theme="dark" autoClose={3000}/>
         {children}
         </body>
     </html>
