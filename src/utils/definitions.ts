@@ -29,7 +29,7 @@ export type User = {
 export type Session = {SESSION_EXPIRY: number}
 
 export type UserType = {
-  user: User 
+  user: User
 }
 
 export type ActionTypes = {

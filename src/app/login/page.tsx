@@ -121,7 +121,7 @@ const Page: React.FC = () => {
   };
 
   useEffect(()=> {
-    if (user?.token) {
+    if (user?.token != "") {
       navigate.push('/')
     window.location.reload();
 
