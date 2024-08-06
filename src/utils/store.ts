@@ -4,7 +4,15 @@ import { persist } from "zustand/middleware";
 
 // Initial state should be null or an empty object based on your type definitions
 const INITIAL_STATE: UserType = {
-    user: null,
+    user: {
+        token: "",
+    level: "",
+    firstName: "",
+    lastName: "",
+    username: "",
+    email: "",
+    role: "",
+    },
 };
 
 export const useUserStore = create(
@@ -15,7 +23,15 @@ export const useUserStore = create(
                 set({ user }); // Directly set the user
             },
             destroyUserInfo() {
-                set({ user: null }); // Set user to null
+                set({ user: {
+                    token: "",
+                level: "",
+                firstName: "",
+                lastName: "",
+                username: "",
+                email: "",
+                role: "",
+                } }); // Set user to null
             },
         }),
         { name: "user", skipHydration: true }
