@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useEffect, useState, useMemo } from "react";
 import { config } from "@/Config";
 import { PublicClientApplication } from "@azure/msal-browser";
-import { createSession, getSession } from "@/utils/session";
+import { createSession } from "@/utils/session";
 import { User } from "@/utils/definitions";
 import { useUserStore } from "@/utils/store";
 import { toast, ToastContainer } from "react-toastify";
@@ -23,7 +23,6 @@ const Page: React.FC = () => {
   const { user, addUserInfo, destroyUserInfo } = useUserStore();
 
   const [message, setMessage] = useState<string>("");
-  const session = getSession();
 
   type Auth = {
     error: string | null;
