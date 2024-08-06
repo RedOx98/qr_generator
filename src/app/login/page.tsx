@@ -77,8 +77,8 @@ const Page: React.FC = () => {
       const user :User = {
         token: response.accessToken,
         level: "ET",
-        firstName: response.account.name,
-        lastName: "lastName",
+        firstName: "OLAIDE",
+        lastName: "HAMMED",
         username: response.account.username,
         email: "olahammed@ecobank.com",
         role: "Tech Innovation"

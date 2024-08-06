@@ -19,7 +19,7 @@ export enum NAVIGATION {
 export type User = {
     token: string;
     level: string;
-    firstName: string| undefined;
+    firstName: string;
     lastName: string;
     username: string;
     email: string,
