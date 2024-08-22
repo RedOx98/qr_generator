@@ -50,54 +50,8 @@ export default function Home() {
     username: user?.username,
   });
 
-  const [res, setRes] = useState<String>("");
-
-  useEffect(() => {
-    // toast.success(`welcome ${user?.firstName}`);
-    useUserStore.persist.rehydrate();
-    // window.location.reload();
-  }, []);
-
-  // const session = await getSession();
-
-  // console.log(session);
-
-  const hub: string = `
-BEGIN:VCARD
-VERSION:2.1
-N:Adebayo;Temitope
-FN:Temitope Adebayo
-ORG:Nigeria Inter-Bank Settlement System PLC
-TITLE:Head, Instant Payment Platform Operations
-TEL;WORK;VOICE:+234 803 430 6657
-ADR;WORK:;;1230 Ahmadu Bello Way;Victoria Island;Lagos;12617;Nigeria
-EMAIL;PREF;INTERNET:tadebayo@nibss-plc.com.ng
-END:VCARD
-  `;
-
-  const handleDownload = async () => {
-    fetchStaff();
-    console.log(res);
-    const divRef = document.getElementById("my-qr");
-    if (divRef) {
-      const canvas = await html2canvas(divRef);
-      const imgData = canvas.toDataURL("image/png");
-      const link = document.createElement("a");
-      link.href = imgData;
-      link.download = "my-div-image.png";
-      link.click();
-      toast.success(`downlaoded successfully`)
-    }
-  };
-
-  const email = data?.email;
-  const goog_chart =
-    "http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=";
-  const str_start = "BEGIN:VCARD\nVERSION:3.0\n";
-  let str_vcard = "BEGIN:VCARD\nVERSION:3.0\n";
-  const str_end = "\nEND:VCARD";
-
-  const fetchStaff = () => {
+  // const [res, setRes] = useState<String>("");
+ 
     const {
       firstName,
       surname,
@@ -113,18 +67,64 @@ END:VCARD
     // // const formatres: string = str_vcard.replace(/\n/g, '%0A');
     // setRes(str_vcard.toString());
     // console.log(res);
-    let str_vcard = "BEGIN:VCARD\nVERSION:3.0\n";
-    str_vcard += `N:${surname};${firstName};${otherNames}\n`;
-    str_vcard += `FN:${firstName} ${surname} ${otherNames}\n`;
-    str_vcard += `TITLE:${department}\n`;
-    str_vcard += `ADR;WORK:;;${physicalAddress}\n`;
-    str_vcard += `EMAIL;PREF;INTERNET:${email}\n`;
-    str_vcard += `TEL;WORK;VOICE:${phoneWork}\n`;
-    str_vcard += "END:VCARD";
+    let res = "BEGIN:VCARD\nVERSION:3.0\n";
+    res += `N:${surname};${firstName};${otherNames}\n`;
+    res += `FN:${firstName} ${surname} ${otherNames}\n`;
+    res += `TITLE:${department}\n`;
+    res += `ADR;WORK:;;${physicalAddress}\n`;
+    res += `EMAIL;PREF;INTERNET:${email}\n`;
+    res += `TEL;WORK;VOICE:${phoneWork}\n`;
+    res += "END:VCARD";
 
-    setRes(str_vcard);
-    console.log(str_vcard);
+  
+  
+
+ 
+  useEffect(() => {
+    // toast.success(`welcome ${user?.firstName}`);
+    useUserStore.persist.rehydrate();
+    // window.location.reload();
+  }, []);
+
+  // const session = await getSession();
+
+  // console.log(session);
+
+//   const hub: string = `
+// BEGIN:VCARD
+// VERSION:2.1
+// N:Adebayo;Temitope
+// FN:Temitope Adebayo
+// ORG:Nigeria Inter-Bank Settlement System PLC
+// TITLE:Head, Instant Payment Platform Operations
+// TEL;WORK;VOICE:+234 803 430 6657
+// ADR;WORK:;;1230 Ahmadu Bello Way;Victoria Island;Lagos;12617;Nigeria
+// EMAIL;PREF;INTERNET:tadebayo@nibss-plc.com.ng
+// END:VCARD
+//   `;
+
+  const handleDownload = async () => {
+  
+    const divRef = document.getElementById("my-qr");
+    if (divRef) {
+      const canvas = await html2canvas(divRef);
+      const imgData = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.href = imgData;
+      link.download = "my-div-image.png";
+      link.click();
+      toast.success(`downlaoded successfully`)
+    }
   };
+
+  // const email = data?.email;
+  // const goog_chart =
+  //   "http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=";
+  // const str_start = "BEGIN:VCARD\nVERSION:3.0\n";
+  // let str_vcard = "BEGIN:VCARD\nVERSION:3.0\n";
+  // const str_end = "\nEND:VCARD";
+
+  
 
   return (
     <div className="w-full max-h-screen  flex flex-row items-center justify-center  bg-gradient-to-r from-[#f2f4f790] via-[#eaf0f7] to-[#edf0f2] z-[-99] overscroll-none">
@@ -269,8 +269,8 @@ END:VCARD
                             JohnDoe@gmail.com
                           </h5>
                         ) : (
-                          <h5 className="font-extralight text-[12px]">
-                            {data?.email}
+<h5 className="font-extralight text-[12px] max-w-[120px]  text-overflow-ellipsis">
+{data?.email}
                           </h5>
                         )}
                       </div>
@@ -319,7 +319,7 @@ END:VCARD
                       </div>
                     </div>
                   </div>
-                  <div className="ml-2 mr-8 h-80 w-80 mt-8">
+                  <div className="mr-4 h-80 w-80 mt-8">
                     {
                       // data?.staffIdNo == '' ? <Image src="http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=" alt='Passport Photograph' width={60} height={60} className='rounded-lg'/>
                       // :
