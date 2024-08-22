@@ -66,3 +66,4 @@ export const config = {
     "/((?!api|_next/static|_next/image|.*\\.png$|.*\\.svg$|.*\\.gif$).*)",
   ],
 };
+
