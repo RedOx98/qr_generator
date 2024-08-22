@@ -8,6 +8,9 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import html2canvas from 'html2canvas';
 import { usePDF } from 'react-to-pdf';
+import QRCode from "react-qr-code";
+import { useUserStore } from "@/utils/store";
+
 
 
 const BuildVirtualCard = () => {
@@ -15,27 +18,32 @@ const BuildVirtualCard = () => {
     var str_start = 'BEGIN:VCARD\nVERSION:3.0\n';
         var str_vcard = 'BEGIN:VCARD\nVERSION:3.0\n';
         var str_end = '\nEND:VCARD';
+
+        const { user } = useUserStore();
+        
+
   const [staffId, setStaffId] = useState<string>('');
   const [qr, setQr] = useState<string | null>(null);
   const [image, setImage] = useState(goog_chart);
-  const [data, setData] = useState<StaffType>({
-    department: "",
-    email: "",
-    firstName: "",
-    id: "",
-    jobRole: "",
-    otherNames: "",
-    phoneHome: "",
-    phoneWork: "",
-    physicalAddress: "",
-    staffIdNo: "",
+  let [data, setData] = useState<StaffType>({
+    department: user?.level,
+    email: user?.email,
+    firstName: user?.firstName,
+    id: "123456",
+    jobRole: user?.role,
+    otherNames: "DOE",
+    phoneHome: "+2345678989900",
+    phoneWork: "+2346789909909",
+    physicalAddress: "EPAC",
+    staffIdNo: "12345",
     surname: "",
-    url: "",
-    username: "",
-});
-console.log(str_vcard);
+    url: "whatsapp",
+    username: user?.username,
+  });
+  // console.log(data);
+// console.log(str_vcard);
 const [downloadFlag, setDownloadFlag] = useState<boolean>(false);
-const email = data.email
+// const email = data.email
 const { toPDF, targetRef } = usePDF({ filename: 'page.pdf' });   
 const handleDownload = async () => {
   const divRef = document.getElementById('my-qr'); 
@@ -73,7 +81,7 @@ const handleDownload = async () => {
       };
       const add_email = () => {
           const work_mail = data.email;
-          console.log(work_mail);
+          // console.log(work_mail);
           // data.email;
           // const home_mail = vcard.get_field(res?.email);
           return str_vcard += '\nEMAIL;TYPE=internet,home:'+work_mail;
@@ -95,12 +103,34 @@ const handleDownload = async () => {
           add_url();
           // add_work;
       }
-  
+      const {
+        firstName,
+        surname,
+        otherNames,
+        department,
+        physicalAddress,
+       email,
+        phoneWork,
+      } = data;
+        
+      //dummy from Tosin to check if this working
+      
+      let tqr = "BEGIN:VCARD\nVERSION:3.0\n";
+      tqr += `N:${surname};${firstName};${otherNames}\n`;
+      tqr += `FN:${firstName} ${surname} ${otherNames}\n`;
+      tqr += `TITLE:${department}\n`;
+      tqr += `ADR;WORK:;;${physicalAddress}\n`;
+      tqr += `EMAIL;PREF;INTERNET:${email}\n`;
+      tqr += `TEL;WORK;VOICE:${phoneWork}\n`;
+      tqr += "END:VCARD";
+      
           
 
           useEffect(()=> {
+            useUserStore.persist.rehydrate();
+            // console.log(user);
             const formQR = ()=> {
-              save();
+              // save();
               str_vcard += str_end;
           // console.log(str_vcard)
 
@@ -117,6 +147,8 @@ const handleDownload = async () => {
               ...prev,
               [name]: [value]
             }));
+
+
           };
   return (
     <div className='w-full h-full flex flex-row justify-center items-center'>
@@ -139,7 +171,7 @@ const handleDownload = async () => {
                 <h6 className="font-serif font-extralight">First name:</h6>
               </div>
               <div className="flex-[3] mr-[40px]">
-                <input type="text" className="firstName w-[250px] border-b-[1px] focus:border-b-1 outline-none" name="firstName" value={data.firstName} onChange={handleChange}/>
+                <input type="text" className="firstName w-[250px] border-b-[1px] focus:border-b-1 outline-none" name="firstName" value={data.firstName} onChange={handleChange} disabled/>
               </div>
             </div>
             <div className="flex flex-row gap-1 ml-2 justify-around">
@@ -147,7 +179,7 @@ const handleDownload = async () => {
                 <h6 className="font-serif font-extralight">Last name:</h6>
               </div>
               <div className="flex-[3] mr-[40px]">
-                <input type="text" className="firstName w-[250px] border-b-[1px] focus:border-b-1 outline-none" name="surname" value={data.surname} onChange={handleChange}/>
+                <input type="text" className="firstName w-[250px] border-b-[1px] focus:border-b-1 outline-none" name="surname" value={data.surname} onChange={handleChange} disabled/>
               </div>
             </div>
             <div className="flex flex-row gap-1 ml-2 justify-around">
@@ -163,7 +195,7 @@ const handleDownload = async () => {
                 <h6 className="font-serif font-extralight">Email Address:</h6>
               </div>
               <div className="flex-[3] mr-[40px]">
-                <input type="text" className="firstName w-[250px] border-b-[1px] focus:border-b-1 outline-none" name="email" value={data.email} onChange={handleChange}/>
+                <input type="text" className="firstName w-[250px] border-b-[1px] focus:border-b-1 outline-none" name="email" value={data.email} onChange={handleChange} disabled/>
               </div>
             </div>
             <div className="flex flex-row gap-1 ml-2 justify-around">
@@ -171,7 +203,7 @@ const handleDownload = async () => {
                 <h6 className="font-serif font-extralight">Work:</h6>
               </div>
               <div className="flex-[3] mr-[40px]">
-                <input type="text" className="firstName w-[250px] border-b-[1px] focus:border-b-1 outline-none" name="phoneWork" value={data.phoneWork} onChange={handleChange}/>
+                <input type="text" className="firstName w-[250px] border-b-[1px] focus:border-b-1 outline-none" name="phoneWork" value={data.phoneWork} onChange={handleChange} disabled/>
               </div>
             </div>
             <div className="flex flex-row gap-1 ml-2 justify-around">
@@ -179,7 +211,7 @@ const handleDownload = async () => {
                 <h6 className="font-serif font-extralight">Address:</h6>
               </div>
               <div className="flex-[3] mr-[40px]">
-                <input type="text" className="firstName w-[250px] border-b-[1px] focus:border-b-1 outline-none" name="physicalAddress" value={data.physicalAddress} onChange={handleChange}/>
+                <input type="text" className="firstName w-[250px] border-b-[1px] focus:border-b-1 outline-none" name="physicalAddress" value={data.physicalAddress} onChange={handleChange} disabled/>
               </div>
             </div>
             <div className="flex flex-row gap-1 ml-2 justify-around">
@@ -195,7 +227,7 @@ const handleDownload = async () => {
                 <h6 className="font-serif font-extralight">Website:</h6>
               </div>
               <div className="flex-[3] mr-[40px]">
-                <input type="text" className="firstName w-[250px] border-b-[1px] focus:border-b-1 outline-none" name="url" value={data.url} onChange={handleChange}/>
+                <input type="text" className="firstName w-[250px] border-b-[1px] focus:border-b-1 outline-none" name="url" value={data.url} onChange={handleChange} disabled/>
               </div>
             </div>
           </div>
@@ -294,8 +326,22 @@ const handleDownload = async () => {
             </div>
             <div className=" bg-[#ffffff] w-[320px] h-[200px] flex flex-col shadow-lg">
               <div className="flex-[14] flex justify-center items-center ml-[-20px]">
-                  <Image className=' object-cover ' src="/images/GetLogoImage.png" alt='/' width={200} height={200} />
-              </div>
+              {
+                      // data?.staffIdNo == '' ? <Image src="http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=" alt='Passport Photograph' width={60} height={60} className='rounded-lg'/>
+                      // :
+                      //image
+                      <QRCode
+                        value={tqr.toString()}
+                        size={256}
+                        style={{
+                          height: "80px",
+                          maxWidth: "80px",
+                          width: "80px",
+                        }}
+                      />
+
+                      // <Image src={image} alt='Passport Photograph' width={60} height={60} className='rounded-lg'/>
+                    }              </div>
               <div className="flex items-center justify-center mt-[-8px] flex-1 mb-[10px]">
                 <h1 className="text-[#000000] font-thin text-[8px]">Commercial Banking | Consumer Banking | Corporate and Investment Banking</h1>
               </div>
@@ -303,8 +349,22 @@ const handleDownload = async () => {
             </div>
           </div>
           <div className="flex-1 absolute top-[140px] right-[30px] ">
-                        <Image src={image} alt='Passport Photograph' width={100} height={120} className='rounded-lg'/>
-                    </div>
+          {
+                      // data?.staffIdNo == '' ? <Image src="http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=" alt='Passport Photograph' width={60} height={60} className='rounded-lg'/>
+                      // :
+                      //image
+                      <QRCode
+                        value={tqr}
+                        size={256}
+                        style={{
+                          height: "80px",
+                          maxWidth: "80px",
+                          width: "80px",
+                        }}
+                      />
+
+                      // <Image src={image} alt='Passport Photograph' width={60} height={60} className='rounded-lg'/>
+                    }                      </div>
         </div>
       </div>
     </div>
