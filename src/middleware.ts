@@ -18,7 +18,7 @@ export default async function middleware(req: NextRequest) {
 
   // If /login and cookie is set, redirect to user dashboard
   if (path === "/" && cookie) {
-    return NextResponse.redirect(new URL(NAVIGATION.USER, req.nextUrl));
+    return NextResponse.next();
   }
 
   // If on empty path - Go to Login page
