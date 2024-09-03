@@ -93,7 +93,7 @@ const Page: React.FC = () => {
         error: null,
       });
       // Redirect to the hoxmepage after successful login
-      // router.push('/');
+      navigate.push('/')
     } catch (err) {
       setAuth({
         isAuthenticated: false,
@@ -121,13 +121,13 @@ const Page: React.FC = () => {
     console.log(credentials);
   };
 
-  useEffect(()=> {
-    if (user?.token != "") {
-      navigate.push('/')
-    window.location.reload();
+  // useEffect(()=> {
+  //   if (user?.token != "") {
+  //     navigate.push('/')
+  //   window.location.reload();
 
-    }
-  }, [])
+  //   }
+  // }, [])
 
   return (
     <div className="w-screen h-screen flex flex-col justify-center items-center bg-gradient-to-b from-[#10A2DC] via-[#315fa4] to-[#040533] gap-4 overscroll-none overflow-hidden">
