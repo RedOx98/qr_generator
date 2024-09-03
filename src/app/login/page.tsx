@@ -141,7 +141,7 @@ const Page: React.FC = () => {
         <div className="flex flex-col">
           <div className="flex-1 flex flex-col items-center justify-center mt-[-40px]">
             <h1 className="text-black text-[80px]" style={{ fontSize: "30px" }}>
-              Welcome back!
+              Welcome back!!
             </h1>
             <hr className="w-[70px] h-[6px] bg-[#10A2DC] ml-[140px] rounded-lg" />
           </div>
