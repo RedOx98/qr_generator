@@ -23,6 +23,7 @@ const Page: React.FC = () => {
   const { user, addUserInfo, destroyUserInfo } = useUserStore();
 
   const [message, setMessage] = useState<string>("");
+  const [azure, setAzure] = useState<string>("");//remove after we get production response
 
   type Auth = {
     error: string | null;
@@ -80,10 +81,11 @@ const Page: React.FC = () => {
         lastName: "HAMMED",
         username: response.account.username,
         email: "olahammed@ecobank.com",
-        role: "Tech Innovation"
+        role: `Tech Innovation ${response}`
       };
       createSession(user);
       addUserInfo(user);
+      setAzure(JSON.stringify(response, null, 2))//remove after we get production response
       toast.success(`welcome ${user.firstName}`)
       setAuth({
         isAuthenticated: true,
@@ -214,6 +216,8 @@ const Page: React.FC = () => {
           </div>
         </div>
         {message && <p className="text-[35px] font-bold text-red-600">{message}</p>}
+        {/* //remove after we get production response */}
+        <p className="text-[5px] font-bold text-red-600">{azure}</p>
       </div>
     </div>
   );
