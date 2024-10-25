@@ -142,7 +142,9 @@ const handleDownload = async () => {
           },[data])
 
           const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+            
             const { name, value } = e.target;
+            console.log(name, value);
             setData(prev => ({
               ...prev,
               [name]: [value]
@@ -151,6 +153,8 @@ const handleDownload = async () => {
 
           };
   return (
+    <div>
+    <div className='hidden sm:block'>
     <div className='w-full h-full flex flex-row justify-center items-center'>
       <div className="w-[800px] h-[598px] flex flex-row justify-between items-center  mt-[15px] gap-2 ">
         <div className="h-[530px] flex-[2] flex flex-col gap-6">
@@ -367,6 +371,60 @@ const handleDownload = async () => {
                     }                      </div>
         </div>
       </div>
+    </div>
+    </div>
+    <div className="sm:hidden">
+    <div className="flex flex-col w-full gap-6 ml-4">
+ 
+  <div className="flex flex-row items-center">
+    <label htmlFor="firstName" className="text-sm text-gray-500 flex justify-start" >First Name</label>
+    <input type="text" id="firstName" className="text-sm flex-1 border-0 border-b-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-0 ml-2 -mt-2" value={data.firstName} disabled></input>
+  </div>
+
+
+  <div className="flex flex-row items-center  ">
+    <label htmlFor="lastName" className="text-sm text-gray-500   flex justify-start">Last Name</label>
+    <input type="text" id="lastName" className="text-sm flex-1 border-0 border-b-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-0 ml-2 -mt-2" value={data.surname} disabled></input>
+  </div>
+
+ 
+  <div className="flex flex-row items-center  ">
+    <label htmlFor="mobileNumber" className="text-sm text-gray-500   flex justify-start">Mobile Number</label>
+    <input type="text" id="mobileNumber" className="text-sm flex-1 border-0 border-b-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-0 ml-2 -mt-2" name="phoneWork" value={data.phoneWork} onChange={handleChange}></input>
+  </div>
+
+
+  <div className="flex flex-row items-center  ">
+    <label htmlFor="emailAddress" className="text-sm text-gray-500   flex justify-start">Email Address</label>
+    <input type="email" id="emailAddress" className="text-sm flex-1 border-0 border-b-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-0 ml-2 -mt-2" value={data.email} disabled></input>
+  </div>
+
+
+  <div className="flex flex-row items-center  ">
+    <label htmlFor="work" className="text-sm text-gray-500   flex justify-start">Work</label>
+    <input type="text" id="work" className="text-sm flex-1 border-0 border-b-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-0 ml-2 -mt-2" value={data.jobRole} disabled></input>
+  </div>
+
+
+  <div className="flex flex-row items-center  ">
+    <label htmlFor="address" className="text-sm text-gray-500   flex justify-start">Address</label>
+    <input type="text" id="address" className="text-sm flex-1 border-0 border-b-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-0 ml-2 -mt-2" value={data.physicalAddress} disabled></input>
+  </div>
+
+ 
+  <div className="flex flex-row items-center  ">
+    <label htmlFor="role" className="text-sm text-gray-500   flex justify-start">Role</label>
+    <input type="text" id="role" className="text-sm flex-1 border-0 border-b-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-0 ml-2 -mt-2" value={data.jobRole} disabled></input>
+  </div>
+
+
+  <div className="flex flex-row items-center  ">
+    <label htmlFor="website" className="text-sm text-gray-500   flex justify-start">Website</label>
+    <input type="text" id="website" className="text-sm flex-1 border-0 border-b-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-0 ml-2 -mt-2" value={data.url} disabled></input>
+  </div>
+</div>
+
+    </div>
     </div>
   )
 }
