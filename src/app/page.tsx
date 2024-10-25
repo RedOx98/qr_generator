@@ -108,10 +108,11 @@ export default function Home() {
 //   `;
 
   const handleDownload = async () => {
-  
+  console.log("ksks");
     const divRef = document.getElementById("my-qr");
     if (divRef) {
       const canvas = await html2canvas(divRef);
+      console.log(canvas)
       const imgData = canvas.toDataURL("image/png");
       const link = document.createElement("a");
       link.href = imgData;
@@ -680,24 +681,25 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <button
-            className="flex items-center justify-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-            onClick={handleDownload}
-          >
-            <FontAwesomeIcon
-              icon={faFilePdf}
-              className="text-white"
-              width={16}
-              height={16}
-            />
-            <span className="text-base">Save as PDF</span>
-          </button>
+
 
           <button
             className="flex items-center justify-center gap-2 mt-4 px-4 py-2 mb-4 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600"
             onClick={() => toPDF()}
+          > <FontAwesomeIcon
+          icon={faFilePdf}
+          className="text-white"
+          width={16}
+          height={16}
+        />
+        <span className="text-base">Save as PDF</span>
+            
+          </button>
+                    <button
+            className="flex items-center justify-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+            onClick={handleDownload}
           >
-            <FontAwesomeIcon
+<FontAwesomeIcon
               icon={faFileImage}
               className="text-white"
               width={16}
