@@ -394,7 +394,7 @@ const handleDownload = async () => {
   </div>
 
 
-  <div className="flex flex-row items-center  ">
+  <div className="flex flex-row items-center  ">  
     <label htmlFor="emailAddress" className="text-sm text-gray-500   flex justify-start">Email Address</label>
     <input type="email" id="emailAddress" className="text-sm flex-1 border-0 border-b-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-0 ml-2 -mt-2" value={data.email} disabled></input>
   </div>
