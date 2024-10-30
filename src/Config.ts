@@ -20,9 +20,9 @@
 // };
 
 // For test azure environment
-export const config = {
-    appId: 'f99fa9e8-0986-4825-8d35-9d8ef0ec0e00',
-    redirectUrl: 'http://localhost:3000/',
-    scopes: ['User.Read'],
-    authority: 'https://login.microsoftonline.com/2ad72c11-ca14-4743-95d6-fbbe0f001056'
-};
+// export const config = {
+//     appId: 'f99fa9e8-0986-4825-8d35-9d8ef0ec0e00',
+//     redirectUrl: 'http://localhost:3000/',
+//     scopes: ['User.Read'],
+//     authority: 'https://login.microsoftonline.com/2ad72c11-ca14-4743-95d6-fbbe0f001056'
+// };

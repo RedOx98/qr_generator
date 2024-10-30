@@ -1,15 +1,58 @@
 "use client"
+import Image from 'next/image'
+import { usePDF } from "react-to-pdf";
+import { toast } from 'react-toastify';
+import html2canvas from "html2canvas";
 
-const Generate = () =>{
+const Bold = () =>{
+  
+  const { toPDF, targetRef } = usePDF({ filename: "page.pdf" });
+  const handleDownloadPDF = () => {
+    const divRef = document.getElementById("mya");
+  
+    if (divRef) {
+      // Temporarily remove the 'hidden' class
+      divRef.classList.remove('sm:hidden');
+  
+      // Generate the PDF
+      toPDF();
+  
+      // Reapply the 'hidden' class after PDF generation
+      setTimeout(() => {
+        divRef.classList.add('snm:hidden');
+      }, 500); // Adjust the delay if needed based on the PDF generation speed
+    }
+  };
+  const handleDownload = async () => {
+  
+    const divRef = document.getElementById("mya");
+    if (divRef) {
+      console.log(divRef)
+      divRef.classList.remove('sm:hidden');
+      console.log(divRef)
+      const canvas = await html2canvas(divRef);
+      console.log(canvas)
+      const imgData = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.href = imgData;
+      link.download = "my-div-image.png";
+      link.click();
+      toast.success(`downlaoded successfully`)
+      divRef.classList.add('sm:hidden');
+
+    }
+  };
 return(
-    <div className="flex flex-col justify-center items-center mt-12 ">
-        <div className="w-72 bg-white rounded-lg shadow-lg bg-gray-50">
-        {/* <!-- Front Side --> */}
-
-        {/* {name} */}
-        <div className="p-4 bg-gray-50 rounded-lg bg-gray-150">
-            <div className="flex justify-between">
-                <div>
+//     <div className='mt-12 ml-24 h-45 w-34  bg-[url("/images/bg_card 1.png")]' > 
+// {/* <Image className='ml-3 opacity-60 cursor-pointer' src="/images/bg_card 1.png" alt='/' width={340} height={372} />
+//            */}
+// </div>
+<div>
+  <div id="mya"
+                ref={targetRef} className='mt-12 ml-4 h-80 w-80 bg-[url("/images/bg_card%201.png")] bg-cover bg-center sm:hidden rounded-lg'>
+<div className="flex flex-col ">
+  <div className="flex justify-between p-4">
+  <div>
                     <div className="flex items-center mb-2">
                     <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <circle cx="12" cy="9" r="3" stroke="#1C274C" stroke-width="1.5"/>
@@ -57,32 +100,75 @@ return(
                         <span className="text-xs pl-2">EPAC</span>
                     </div>
                 </div>
-                <div>
-                <svg width="80px" height="80px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M9.75 5.25H5.25V9.75H9.75V5.25ZM3.75 3.75V11.25H11.25V3.75H3.75ZM9.75 14.25H5.25V18.75H9.75V14.25ZM3.75 12.75V20.25H11.25V12.75H3.75ZM14.25 5.25H18.75V9.75H14.25V5.25ZM12.75 11.25V3.75H20.25V11.25H12.75ZM12.75 17.25V12.75H14.25V17.25H12.75ZM6.75 6.75V8.25H8.25V6.75H6.75ZM6.75 17.25V15.75H8.25V17.25H6.75ZM15.75 6.75V8.25H17.25V6.75H15.75ZM18.75 20.25V18H20.25V20.25H18.75ZM18.75 12.75V15H17.25V12.75H15.75V18.75H12.75V20.25H17.25V16.5H20.25V15V12.75H18.75Z" fill="#080341"/>
-</svg>
+
+
+                <div className="bg-gray-100 -m-4 p-2">
+  <svg width="80px" height="80px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path 
+      fill-rule="evenodd" 
+      clip-rule="evenodd" 
+      d="M9.75 5.25H5.25V9.75H9.75V5.25ZM3.75 3.75V11.25H11.25V3.75H3.75ZM9.75 14.25H5.25V18.75H9.75V14.25ZM3.75 12.75V20.25H11.25V12.75H3.75ZM14.25 5.25H18.75V9.75H14.25V5.25ZM12.75 11.25V3.75H20.25V11.25H12.75ZM12.75 17.25V12.75H14.25V17.25H12.75ZM6.75 6.75V8.25H8.25V6.75H6.75ZM6.75 17.25V15.75H8.25V17.25H6.75ZM15.75 6.75V8.25H17.25V6.75H15.75ZM18.75 20.25V18H20.25V20.25H18.75ZM18.75 12.75V15H17.25V12.75H15.75V18.75H12.75V20.25H17.25V16.5H20.25V15V12.75H18.75Z" 
+      fill="#080341" 
+    />
+  </svg>
+</div>
+
+
+ 
+
+  </div>
+
+
+
+  <div className="h-36 p-4">
+            <div className="flex flex-row items-center justify-end mt-20 gap-6">
+            <Image className='' src="/images/ecobank-seeklogo.png" alt='/' width={80} height={74} />
+                <div className="flex flex-col items-start">
+                <h2 className="text-center font-bold">Ecobank</h2>
+                <h2 className="text-center -mt-2">Nigeria Limited</h2>
                 </div>
             </div>
         </div>
+</div>
 
-        {/* <!-- Back Side --> */}
-        <div className="h-36 p-4 bg-white rounded-lg mt-2 border border-2">
-            <div className="flex flex-row items-center">
-                <img src="path/to/logo.png" alt="Logo" className="mx-auto"></img>
-                <div className="flex flex-col items-end gap-4">
-                <h2 className="text-center font-bold mt-2">Ecobank</h2>
-                <h2 className="text-center font-bold">Nigeria</h2>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    </div>
+                   
+</div>
+{/* <div className="mb-[20px]">
+              <div
+                id="mya"
+                ref={targetRef}
+                className=" bg-[#ffffff] w-[320px] h-[200px] shadow-lg flex flex-col gap-1 rounded-[10px] hidden"
+              >
+<div className='w-[15px] h-full'>
+<h5 className="text-[#000000] uppercase font-light text-[10px]">
+                            TECHNOLOGY
+                          </h5>
+                          
+</div>
+              </div>
+              </div> */}
+              <div className='flex flex-row justify-center align-center gap-4'>
+                              <button
+            className="flex items-center justify-center gap-2 mt-4 px-4 py-2 mb-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+            onClick={handleDownload}
+          >
 
+            <span className="text-base">Save as Image</span>
+          </button>
+
+              <button
+            className="flex items-center justify-center gap-2 mt-4 px-4 py-2 mb-4 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600"
+            onClick={handleDownloadPDF}
+          > 
+        <span className="text-base">Save as PDF</span>
+            
+          </button>
+          </div>
+
+</div>
 
 )
-
-
 }
 
-export default Generate;
+export default Bold;

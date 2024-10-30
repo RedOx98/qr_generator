@@ -10,10 +10,12 @@ import html2canvas from 'html2canvas';
 import { usePDF } from 'react-to-pdf';
 import QRCode from "react-qr-code";
 import { useUserStore } from "@/utils/store";
-
+import { useRouter } from "next/navigation";
 
 
 const BuildVirtualCard = () => {
+  const navigate = useRouter();
+
   var goog_chart = 'http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=';
     var str_start = 'BEGIN:VCARD\nVERSION:3.0\n';
         var str_vcard = 'BEGIN:VCARD\nVERSION:3.0\n';
@@ -152,6 +154,12 @@ const handleDownload = async () => {
 
 
           };
+
+          const handleSubmit = () => {
+            navigate.push('/generate'); // Replace with your desired route
+          };
+        
+
   return (
     <div>
     <div className='hidden sm:block'>
@@ -374,7 +382,7 @@ const handleDownload = async () => {
     </div>
     </div>
     <div className="sm:hidden">
-    <div className="flex flex-col w-full gap-6 ml-4">
+    <div className="flex flex-col w-full gap-6 ml-4 mt-12">
  
   <div className="flex flex-row items-center">
     <label htmlFor="firstName" className="text-sm text-gray-500 flex justify-start" >First Name</label>
@@ -422,6 +430,13 @@ const handleDownload = async () => {
     <label htmlFor="website" className="text-sm text-gray-500   flex justify-start">Website</label>
     <input type="text" id="website" className="text-sm flex-1 border-0 border-b-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-0 ml-2 -mt-2" value={data.url} disabled></input>
   </div>
+
+  <button
+      onClick={handleSubmit}
+      className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
+    >
+      Submit
+    </button>
 </div>
 
     </div>

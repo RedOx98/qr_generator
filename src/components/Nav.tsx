@@ -3,6 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useState } from 'react'
+import { useRouter } from 'next/router';
+
 import {
     faList,
     faUserTag,
@@ -25,9 +27,9 @@ const Nav = ({}) => {
                         Generate
                         </div>
                     </Link>
-                    <Link href={'/buildvcc'} className={pathname === '/buildvcc' ? activeLink : inactiveLink} >
-                        <div className="flex flex-1 items-center justify-center gap-2 w-[30px] cursor-pointer font-thin">
-                        Customize 
+                    <Link href={'/buildvcc'} className={pathname === '/buildvcc border-2 border-white' ? activeLink : inactiveLink} >
+                        <div onClick={() => alert("customize")} className="flex flex-1 items-center justify-center gap-2 w-[30px] cursor-pointer font-thin">
+                        Customize
                         </div>
                     </Link>
                 </div>
