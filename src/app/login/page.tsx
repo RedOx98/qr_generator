@@ -210,7 +210,7 @@ const Page: React.FC = () => {
                 </div>
                 <div className="">
                   {/* <h3 className="text-white font-light" onClick={login}>Company Single Sign-On</h3> */}
-                  <button className="text-white font-light" onClick={login}>
+                  <button className="text-white font-light" onClick={()=>login}>
                     Login
                   </button>
                 </div>
