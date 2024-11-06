@@ -41,18 +41,18 @@ export default function Home() {
   const { user } = useUserStore();
 
   let [data, setData] = useState<StaffType>({
-    department: user?.level,
+    department: "",
     email: user?.email,
     firstName: user?.firstName,
     id: "123456",
     jobRole: user?.role,
-    otherNames: "DOE",
-    phoneHome: "+2345678989900",
-    phoneWork: "+2346789909909",
+    otherNames: "",
+    phoneHome: "+234...",
+    phoneWork: "+234...",
     physicalAddress: "EPAC",
     staffIdNo: "12345",
-    surname: "",
-    url: "whatsapp",
+    surname: user?.lastName,
+    url: "",
     username: user?.username,
   });
 
@@ -191,7 +191,7 @@ export default function Home() {
                   <div className="absolute top-[-20px] left-[-20px]">
                     {data?.staffIdNo === "" ? (
                       <h6 className="text-[#fff] font-thin text-[14px] ">
-                        10941
+                        {data?.staffIdNo}
                       </h6>
                     ) : (
                       <h6 className="text-black font-bold text-[14px] ">
@@ -211,7 +211,7 @@ export default function Home() {
                   <div className="flex-[2]">
                     {data?.firstName === "" ? (
                       <h4 className="text-[14px] font-sans font-semibold">
-                        Olumide
+                        {data?.firstName}
                       </h4>
                     ) : (
                       <h4 className="text-[14px] font-sans font-semibold">
@@ -229,7 +229,7 @@ export default function Home() {
                   <div className="flex-[2]">
                     {data?.surname === "" ? (
                       <h4 className="text-[14px] font-sans font-semibold">
-                        OLAMILEKAN
+                        {data?.surname}
                       </h4>
                     ) : (
                       <h4 className="text-[14px] font-sans font-semibold">
@@ -245,7 +245,7 @@ export default function Home() {
                   <div className="flex-[2]">
                     {data?.jobRole === "" ? (
                       <h4 className="text-[14px] font-sans font-semibold">
-                        Data Analyst
+                        {data?.jobRole}
                       </h4>
                     ) : (
                       <h4 className="text-[14px] font-sans font-semibold">
@@ -261,7 +261,7 @@ export default function Home() {
                   <div className="flex-[2]">
                     {data?.url === "" ? (
                       <h4 className="text-[14px] font-sans font-semibold">
-                        oolamilekan@ecobank.com
+                        {data?.url}
                       </h4>
                     ) : (
                       <h4 className="text-[14px] font-sans font-semibold">
@@ -279,7 +279,7 @@ export default function Home() {
                   <div className="flex-[2]">
                     {data?.physicalAddress === "" ? (
                       <h4 className="text-[14px] font-sans font-semibold">
-                        HEAD OFFICE
+                        {data?.physicalAddress}
                       </h4>
                     ) : (
                       <h4 className="text-[14px] font-sans font-semibold">
@@ -403,7 +403,7 @@ export default function Home() {
                         <div className="">
                           {data?.firstName == "" && data?.surname == "" ? (
                             <h5 className="text-[#000000] uppercase font-bold text-[14px]">
-                              JOHN DOE
+                              {data?.firstName + " " + data?.surname}
                             </h5>
                           ) : (
                             <h5 className="text-[#000000] uppercase font-bold text-[14px]">
@@ -414,7 +414,7 @@ export default function Home() {
                         <div className="flex justify-end items-center">
                           {data?.department == "" ? (
                             <h5 className="text-[#000000] uppercase font-light text-[10px]">
-                              TECHNOLOGY
+                              {data?.department}
                             </h5>
                           ) : (
                             <h5 className="text-[#000000] uppercase font-light text-[10px]">
@@ -447,7 +447,7 @@ export default function Home() {
                         <div className="">
                           {data?.phoneWork == "" ? (
                             <h5 className="font-extralight text-[12px] text-black">
-                              090369410000
+                              {data?.phoneWork}
                             </h5>
                           ) : (
                             <h5 className="font-extralight text-[12px] text-black">
@@ -468,7 +468,7 @@ export default function Home() {
                         <div className="">
                           {data?.email === "" ? (
                             <h5 className="font-extralight text-[12px]">
-                              JohnDoe@gmail.com
+                              {data?.email}
                             </h5>
                           ) : (
                             <h5 className="font-extralight text-[12px] max-w-[120px]  text-overflow-ellipsis">
@@ -490,7 +490,7 @@ export default function Home() {
                         <div className="">
                           {data?.url === "" ? (
                             <h5 className="font-extralight text-[12px]">
-                              JohnDoe.com
+                              {data?.url}
                             </h5>
                           ) : (
                             <h5 className="font-extralight text-[12px]">
@@ -511,7 +511,7 @@ export default function Home() {
                         <div className="">
                           {data?.physicalAddress === "" ? (
                             <h5 className="font-extralight text-[12px]">
-                              HEAD OFFICE
+                              {data?.physicalAddress}
                             </h5>
                           ) : (
                             <h5 className="font-extralight text-[12px]">
@@ -600,7 +600,7 @@ export default function Home() {
                 <div className="flex-[2]">
                   {data?.firstName === "" ? (
                     <h4 className="text-[14px] font-sans font-semibold">
-                      Olumide
+                      {data?.firstName}
                     </h4>
                   ) : (
                     <h4 className="text-[14px] font-sans font-semibold">
@@ -616,7 +616,7 @@ export default function Home() {
                 <div className="flex-[2]">
                   {data?.surname === "" ? (
                     <h4 className="text-[14px] font-sans font-semibold">
-                      OLAMILEKAN
+                      {data?.surname}
                     </h4>
                   ) : (
                     <h4 className="text-[14px] font-sans font-semibold">
@@ -632,7 +632,7 @@ export default function Home() {
                 <div className="flex-[2]">
                   {data?.jobRole === "" ? (
                     <h4 className="text-[14px] font-sans font-semibold">
-                      Data Analyst
+                      {data?.jobRole}
                     </h4>
                   ) : (
                     <h4 className="text-[14px] font-sans font-semibold">
@@ -648,7 +648,7 @@ export default function Home() {
                 <div className="flex-[2]">
                   {data?.url === "" ? (
                     <h4 className="text-[14px] font-sans font-semibold">
-                      oolamilekan@ecobank.com
+                      {data?.url}
                     </h4>
                   ) : (
                     <h4 className="text-[14px] font-sans font-semibold">
@@ -664,7 +664,7 @@ export default function Home() {
                 <div className="flex-[2]">
                   {data?.physicalAddress === "" ? (
                     <h4 className="text-[14px] font-sans font-semibold">
-                      HEAD OFFICE
+                      {data?.physicalAddress}
                     </h4>
                   ) : (
                     <h4 className="text-[14px] font-sans font-semibold">
