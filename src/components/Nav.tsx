@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router';
 
 import {
@@ -10,13 +10,24 @@ import {
     faUserTag,
   } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useUserStore } from '@/utils/store'
 //rounded-lg bg-[#00000070]
 
 const Nav = ({}) => {
     const inactiveLink = 'flex gap-1 p-2 text-white flex-1';
     const activeLink = inactiveLink + ' items-end opacity-100 w-[200px] bg-[#0579B8] h-[50px] flex items-center text-[#10A2DC] rounded-xl flex-1';
     const pathname = usePathname();
+
+    const { user } = useUserStore();
+
+    useEffect(() => {
+        // toast.success(`welcome ${user?.firstName}`);
+        useUserStore.persist.rehydrate();
+        // window.location.reload();
+      }, []);
     
+    
+        
     return (
         <div className={` `}>
 
@@ -68,7 +79,7 @@ const Nav = ({}) => {
                 </div>
                 <div className="flex-1">
                     <Link href="/">
-                        <h5 className="text-white font-sans mt-3 font-thin"style={{fontSize: "10px"}}>FAQ/TRAFFIC</h5>
+                        <h5 className="text-white font-sans mt-3 font-thin"style={{fontSize: "10px"}}>{user.firstName +  ' ' + user.lastName}</h5>
                     </Link>
                 </div>
             </div>

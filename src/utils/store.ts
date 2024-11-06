@@ -7,7 +7,7 @@ const INITIAL_STATE: UserType = {
     user: {
         token: "",
     level: "",
-    firstName: "Tosin Vincent",
+    firstName: "Tosin",
     lastName: "Vincent",
     username: "TVINCENT",
     email: "tvincent@ecobank.com",
