@@ -78,19 +78,32 @@ const Page: React.FC = () => {
         prompt: "select_account",
       });
       console.log("Azure AD Response:", response);
+      let name = response.account.name?.split(" ");
+      let usermail = response.account.username?.split("@");
+
+      let firstname: string | undefined;
+      let lastname: string | undefined;
+      let username: string | undefined;
+      username = usermail?.[0] ?? "Unknown";
+
+      firstname = name?.[0] ?? "Unknown";
+      lastname = name?.[1] ?? "Unknown";
+      
+      
       const user: User = {
         token: response.accessToken,
-        level: "ET",
-        firstName: "OLAIDE",
-        lastName: "HAMMED",
-        username: response.account.username,
-        email: "olahammed@ecobank.com",
-        role: `Tech Innovation ${response}`,
+        level: "",
+        firstName: `${firstname}`,
+        lastName: `${lastname}`,
+        username: username,
+        email: response.account.username,
+        role: ``,
       };
       createSession(user);
       addUserInfo(user);
       setAzure(JSON.stringify(response, null, 2)); //remove after we get production response
-      toast.success(`welcome ${user.firstName}`);
+      console.log(firstname, lastname)
+      toast.success(`welcome ${firstname}`);
       setAuth({
         isAuthenticated: true,
         user: response.account!,
