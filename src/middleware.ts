@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 // import { decrypt } from './lib/session'
 import { cookies } from 'next/headers'
+import { Session, NAVIGATION } from './utils/definitions'
+import { decrypt } from './utils/session'
 // import { NAVIGATION, ROLES, Session } from './lib/definitions'
 
 const publicRoutes = ['/login', '/login/success', '/login/error']
@@ -14,30 +16,49 @@ export default async function middleware(req: NextRequest) {
 
     console.log(path);
 
+    const publicRoutes = [NAVIGATION.LOGIN.toString()];
+    const isUserProtectedRoute = path.startsWith(NAVIGATION.USER);
+
+    // 3. Decrypt the session gotten from the cookie
+    const cookie = req.cookies.get('session')?.value!
+    console.log("This is the cookie");
+    console.log(cookie);
     // If on empty path - Go to dashboard
     if (path == "/") {
-        return NextResponse.redirect(new URL('/app', req.nextUrl))
+        // return NextResponse.redirect(new URL('/', req.nextUrl))
+        // return NextResponse.next();
+        if (cookie) {
+            console.log("Cookie found, retuning nxt route")
+            return NextResponse.next();
+        }
+
+        console.log("Cookie issue");
+        return NextResponse.redirect(new URL(NAVIGATION.LOGIN, req.nextUrl));
     }
 
     if (publicRoutes.includes(path)) {
         // If going to login page, please go
+        console.log("Going through public path");
         return NextResponse.next()
     }
 
-    // 3. Decrypt the session gotten from the cookie
-    const cookie = cookies().get('session')?.value!
+
 
     // 4. If no cookie found, redirect to /login page
     if (!cookie) {
+        console.log("Another Cookie issue");
         return NextResponse.redirect(new URL('/login', req.nextUrl));
     }
 
     // Retrieve session
     // let session: Session | null = null;
 
+    let session: Session | null = null;
+
     try {
-        // session = await decrypt(cookie)
+        session = await decrypt(cookie)
     } catch (error) {
+        console.error("Error decrypting session:", error);
         // Redirect to login to create new session
         return NextResponse.redirect(new URL('/login', req.nextUrl))
     }
@@ -51,6 +72,11 @@ export default async function middleware(req: NextRequest) {
     // if (session?.role == ROLES.UAM && path == NAVIGATION.HOME) {
     //     return NextResponse.redirect(new URL(NAVIGATION.STAFF, req.nextUrl))
     // }
+
+    if (isUserProtectedRoute && !session) {
+        console.log("Session issue");
+            return NextResponse.redirect(new URL("/login", req.nextUrl));
+          }
 
     return NextResponse.next()
 }
