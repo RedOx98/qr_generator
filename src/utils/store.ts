@@ -12,6 +12,7 @@ const INITIAL_STATE: UserType = {
     username: "TVINCENT",
     email: "tvincent@ecobank.com",
     role: "Application Support",
+    phoneNumber: ""
     },
 };
 
@@ -31,6 +32,7 @@ export const useUserStore = create(
                 username: "",
                 email: "",
                 role: "",
+                phoneNumber: ""
                 } }); // Set user to null
             },
         }),

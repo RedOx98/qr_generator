@@ -24,6 +24,7 @@ export type User = {
     username: string;
     email: string,
     role: string,
+    phoneNumber:string
 };
 
 export type Session = {SESSION_EXPIRY: number}
