@@ -98,6 +98,7 @@ const Page: React.FC = () => {
         username: username,
         email: response.account.username,
         role: ``,
+        phoneNumber: ""
       };
       createSession(user);
       addUserInfo(user);
