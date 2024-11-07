@@ -11,6 +11,7 @@ import { usePDF } from 'react-to-pdf';
 import QRCode from "react-qr-code";
 import { useUserStore } from "@/utils/store";
 import { useRouter } from "next/navigation";
+import { User } from '@/utils/definitions'
 
 
 const BuildVirtualCard = () => {
@@ -38,7 +39,7 @@ const BuildVirtualCard = () => {
     phoneWork: "+2346789909909",
     physicalAddress: "EPAC",
     staffIdNo: "12345",
-    surname: "",
+    surname: user?.lastName,
     url: "whatsapp",
     username: user?.username,
   });
@@ -154,7 +155,17 @@ const handleDownload = async () => {
 
 
           };
-
+          
+          const updatedUser: User = {
+            token: user?.token,
+            level: "",
+            firstName: `${user.firstName}`,
+            lastName: `${user.lastName}`,
+            username: user.username,
+            email: user?.email,
+            role: data.jobRole,
+            phoneNumber: data.phoneWork
+          };
           const handleSubmit = () => {
             navigate.push('/generate'); // Replace with your desired route
           };
@@ -255,13 +266,13 @@ const handleDownload = async () => {
 { downloadFlag &&
 <div className="flex space-x-4 ml-12">
   <button className="flex items-center gap-2 px-4 py-2 bg-white text-gray-700 rounded-md hover:bg-gray-100 focus:outline-none focus:bg-gray-100 border border-gray-300" onClick={handleDownload}>
-    <FontAwesomeIcon icon={faFilePdf} className="text-gray-700" width={16} height={16} />
-    <span className="text-base">Save as PDF</span>
+    <FontAwesomeIcon icon={faFileImage} className="text-gray-700" width={16} height={16} />
+    <span className="text-base">Save as Image</span>
   </button>
 
   <button className="flex items-center gap-2 px-4 py-2 bg-white text-gray-700 rounded-md hover:bg-gray-100 focus:outline-none focus:bg-gray-100 border border-gray-300" onClick={() => toPDF()}>
-    <FontAwesomeIcon icon={faFileImage} className="text-gray-700" width={16} height={16} />
-    <span className="text-base">Save as Image</span>
+    <FontAwesomeIcon icon={faFilePdf} className="text-gray-700" width={16} height={16} />
+    <span className="text-base">Save as PDF</span>
   </button>
 </div>
 }
@@ -272,6 +283,13 @@ const handleDownload = async () => {
           </div>
         </div>
         <div className="w-[350px] h-[560px] flex-[1.5] bg-[rgb(207,213,219)] flex flex-col items-center rounded-r-xl relative" >
+
+
+
+
+
+<div id="my-qr" ref={targetRef}>
+
           <div className="flex-1 w-[230px] rounded-2xl bg-gradient-to-r from-[#54afe0] via-[#0579B8] to-[#5dc0f5] mt-[10px] flex flex-row items-center justify-center gap-2">
             <div className="">
               <h3 className="text-white font-serif text-right font-extralight">Choose Card Style</h3>
@@ -281,7 +299,7 @@ const handleDownload = async () => {
             </div>
           </div>
           <div className="flex-[10] mt-[25px] flex flex-col gap-[20px] ">
-            <div id="my-qr" ref={targetRef} className=" bg-[#ffffff] w-[320px] h-[200px] shadow-lg flex flex-col gap-1">
+            <div  className=" bg-[#ffffff] w-[320px] h-[200px] shadow-lg flex flex-col gap-1">
               {/* <FontAwesomeIcon icon={faStar} className='text-[#00000020] opacity-100' width={20} height={20}/> */}
               <div className="flex-[2] flex flex-row justify-between items-start ">
                 <div className="bg-[#000000] w-[15px] h-full ml-[30px] "></div>
@@ -335,6 +353,7 @@ const handleDownload = async () => {
               </div>
               <div className="flex-[0.5] flex items-end justify-end">
               </div>
+              
             </div>
             <div className=" bg-[#ffffff] w-[320px] h-[200px] flex flex-col shadow-lg">
               <div className="flex-[14] flex justify-center items-center ml-[-20px]">
@@ -377,6 +396,7 @@ const handleDownload = async () => {
 
                       // <Image src={image} alt='Passport Photograph' width={60} height={60} className='rounded-lg'/>
                     }                      </div>
+        </div>
         </div>
       </div>
     </div>
