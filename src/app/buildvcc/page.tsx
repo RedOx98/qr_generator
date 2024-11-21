@@ -430,7 +430,7 @@ const handleDownload = async () => {
 
   <div className="flex flex-row items-center  ">
     <label htmlFor="work" className="text-sm text-gray-500   flex justify-start">Work</label>
-    <input type="text" id="work" className="text-sm flex-1 border-0 border-b-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-0 ml-2 -mt-2" value={data.jobRole} disabled></input>
+    <input type="text" id="work" className="text-sm flex-1 border-0 border-b-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-0 ml-2 -mt-2" value={data.jobRole} disabled ></input>
   </div>
 
 
@@ -442,7 +442,7 @@ const handleDownload = async () => {
  
   <div className="flex flex-row items-center  ">
     <label htmlFor="role" className="text-sm text-gray-500   flex justify-start">Role</label>
-    <input type="text" id="role" className="text-sm flex-1 border-0 border-b-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-0 ml-2 -mt-2" value={data.jobRole} disabled></input>
+    <input type="text" id="role" name='jobRole' className="text-sm flex-1 border-0 border-b-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-0 ml-2 -mt-2" value={data.jobRole} onChange={handleChange}></input>
   </div>
 
 
