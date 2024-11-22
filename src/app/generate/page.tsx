@@ -67,7 +67,7 @@ const Bold = () =>{
   
       // Reapply the 'hidden' class after PDF generation
       setTimeout(() => {
-        divRef.classList.add('snm:hidden');
+        divRef.classList.add('sm:hidden');
       }, 500); // Adjust the delay if needed based on the PDF generation speed
     }
   };
