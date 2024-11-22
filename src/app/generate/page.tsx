@@ -67,7 +67,7 @@ const Bold = () =>{
   
       // Reapply the 'hidden' class after PDF generation
       setTimeout(() => {
-        divRef.classList.add('snm:hidden');
+        divRef.classList.add('sm:hidden');
       }, 500); // Adjust the delay if needed based on the PDF generation speed
     }
   };
@@ -78,7 +78,9 @@ const Bold = () =>{
       console.log(divRef)
       divRef.classList.remove('sm:hidden');
       console.log(divRef)
-      const canvas = await html2canvas(divRef);
+      const canvas = await html2canvas(divRef,{
+        allowTaint : true
+     });
       console.log(canvas)
       const imgData = canvas.toDataURL("image/png");
       const link = document.createElement("a");
@@ -95,10 +97,9 @@ return(
 // {/* <Image className='ml-3 opacity-60 cursor-pointer' src="/images/bg_card 1.png" alt='/' width={340} height={372} />
 //            */}
 // </div>
-<div>
-  
-  <div id="mya"
-                ref={targetRef} className='mt-12 ml-4 h-80 w-80 bg-[url("/images/bg_card%201.png")] bg-cover bg-center sm:hidden rounded-lg'>
+<div className="">  
+  <div id='mya'
+                ref={targetRef} className='mt-12 ml-4  w-80 bg-cover bg-center sm:hidden rounded-t-lg border border-blue-300'>
 <div className="flex flex-col ">
   <div className="flex justify-between p-4">
   <div>
@@ -151,7 +152,7 @@ return(
                 </div>
 
 
-                <div className="bg-gray-100 -m-4 p-2">
+                <div className=" -m-4 p-4">
                 {
                       // data?.staffIdNo == '' ? <Image src="http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=" alt='Passport Photograph' width={60} height={60} className='rounded-lg'/>
                       // :
@@ -177,13 +178,10 @@ return(
 
 
 
-  <div className="h-36 p-4">
-            <div className="flex flex-row items-center justify-end mt-20 gap-6">
-            <Image className='' src="/images/ecobank-seeklogo.png" alt='/' width={80} height={74} />
-                <div className="flex flex-col items-start">
-                <h2 className="text-center font-bold">Ecobank</h2>
-                <h2 className="text-center -mt-2">Nigeria Limited</h2>
-                </div>
+  <div className="">
+            <div className="">
+              <img className="" src="/images/brand_bar.png" alt="/" width="480" height="48" />
+
             </div>
         </div>
 </div>
