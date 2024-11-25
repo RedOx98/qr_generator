@@ -35,7 +35,7 @@ const BuildVirtualCard = () => {
     firstName: user?.firstName,
     id: "123456",
     jobRole: user?.role,
-    otherNames: "DOE",
+    otherNames: "",
     phoneHome: "+2345678989900",
     phoneWork: "+2346789909909",
     physicalAddress: "EPAC",
