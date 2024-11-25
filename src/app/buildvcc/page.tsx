@@ -36,12 +36,12 @@ const BuildVirtualCard = () => {
     id: "123456",
     jobRole: user?.role,
     otherNames: "",
-    phoneHome: "+2345678989900",
-    phoneWork: "+2346789909909",
+    phoneHome: "+2340000000000",
+    phoneWork: "+2340000000000",
     physicalAddress: "EPAC",
-    staffIdNo: "12345",
+    staffIdNo: "00000",
     surname: user?.lastName,
-    url: "whatsapp",
+    url: "ecobank.com",
     username: user?.username,
   });
   // console.log(data);
