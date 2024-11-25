@@ -22,13 +22,13 @@ const Bold = () =>{
     firstName: user?.firstName,
     id: "123456",
     jobRole: user?.role,
-    otherNames: "DOE",
-    phoneHome: "+2345678989900",
-    phoneWork: "+2346789909909",
+    otherNames: "",
+    phoneHome: "+23400000000",
+    phoneWork: "+23400000000",
     physicalAddress: "EPAC",
-    staffIdNo: "12345",
+    staffIdNo: "XXXX",
     surname: user?.lastName,
-    url: "whatsapp",
+    url: "ecobank.com",
     username: user?.username,
   });
   const {
