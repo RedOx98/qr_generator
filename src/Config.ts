@@ -1,10 +1,20 @@
-// Azure production
+// Azure Production
 export const config = {
     appId: '5c4c5b80-8b68-45bc-b2db-6ef2658a180b',
     redirectUrl: '/',
     scopes: ['User.Read'],
     authority: 'https://login.microsoftonline.com/6400df67-1817-484e-84ae-ed3b97ca1620'
 };
+
+
+
+// Azure UAT
+// export const config = {
+//     appId: '5c4c5b80-8b68-45bc-b2db-6ef2658a180b',
+//     redirectUrl: '/',
+//     scopes: ['User.Read'],
+//     authority: 'https://login.microsoftonline.com/6400df67-1817-484e-84ae-ed3b97ca1620'
+// };
 
 // For test azure environment
 // export const config = {
