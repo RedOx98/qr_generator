@@ -1,6 +1,6 @@
 // Azure Production
 export const config = {
-    appId: '5c4c5b80-8b68-45bc-b2db-6ef2658a180b',
+    appId: 'a5637f46-ac4d-419e-96f9-eea0fb9c6b11',
     redirectUrl: '/',
     scopes: ['User.Read'],
     authority: 'https://login.microsoftonline.com/6400df67-1817-484e-84ae-ed3b97ca1620'
