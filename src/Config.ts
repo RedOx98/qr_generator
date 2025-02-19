@@ -1,7 +1,7 @@
 // Azure Production
 export const config = {
     appId: 'a5637f46-ac4d-419e-96f9-eea0fb9c6b11',
-    redirectUrl: '/',
+    redirectUrl: 'https://ebusinesscard.ecobank.com',
     scopes: ['User.Read'],
     authority: 'https://login.microsoftonline.com/6400df67-1817-484e-84ae-ed3b97ca1620'
 };
